@@ -1,0 +1,29 @@
+.main-coner .main-image {
+  position: absolute;
+  top: 0;
+  height: 477px;
+  background-color: #4977fc;
+}
+.main-coner .main-image img {
+  width: 100%;
+}
+@media screen and (min-width: 992px) {
+  .main-coner .main-image {
+    height: 327px;
+    background-color: #4977fc;
+  }
+  .main-coner .main-image img {
+    width: 100%;
+    height: 100%;
+  }
+}
+@media screen and (min-width: 1367px) {
+  .main-coner .main-image {
+    height: 477px;
+    background-color: #4977fc;
+  }
+  .main-coner .main-image img {
+    width: 100%;
+    height: 100%;
+  }
+}
