@@ -1,10 +1,10 @@
 .bk {
   width: 1300px;
-  height: 740px;
+  min-height: 740px;
   background-color: #ffffff;
   box-shadow: 0px 0px 14px 2px rgba(73, 119, 252, 0.29);
   border-radius: 8px;
-  margin: 0 auto;
+  margin: 11px auto;
   padding: 12px 0;
 }
 .bk .form-tit {
@@ -15,6 +15,61 @@
   line-height: 60px;
   letter-spacing: 0px;
   color: #252e47;
+}
+.bk .f-search {
+  width: 112px;
+  height: 39px;
+  background-image: linear-gradient(229deg, #2670f3 0%, #78a7fa 100%), linear-gradient(#2670f3, #2670f3);
+  background-blend-mode: normal, 
+            normal;
+  border-radius: 4px;
+  border: solid 1px #d8e2f0;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 39px;
+  text-align: center;
+  cursor: pointer;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+.bk .f-output {
+  width: 112px;
+  height: 39px;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 39px;
+  text-align: center;
+  letter-spacing: 0px;
+  border-radius: 4px;
+  color: #2670f3;
+}
+.bk .el-form-item {
+  margin-bottom: 0px !important;
+}
+.bk .bk-table {
+  width: 1245px;
+  margin: 0 auto;
+  margin-top: 80px;
+}
+.bk .el-table--border th {
+  background-color: #ebf7ff;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  letter-spacing: 0px;
+  color: #252e47;
+  height: 51px;
+}
+.bk td {
+  color: #515a6e;
+  height: 46px;
+}
+.bk .bk-tab-foot {
+  margin: 20px auto;
 }
 .lg-title {
   width: 100%;

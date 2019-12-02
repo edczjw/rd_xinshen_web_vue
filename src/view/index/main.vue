@@ -39,12 +39,16 @@
                                 <svg class="icon" aria-hidden="true">
                                 <use xlink:href="#icon-tubiao-1" />
                             </svg>审批台</span>
-                            审批台</el-tab-pane>
+                            <!-- 引入审批台子组件 -->
+                            <approvalstage></approvalstage>
+                            </el-tab-pane>
                             <el-tab-pane><span slot="label">
                                 <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-gongzuotai2" />
+                                <use xlink:href="#icon-tongji2" />
                             </svg>统计</span>
-                            统计</el-tab-pane>
+                            <!-- 引入统计子组件 -->
+                            <statistical></statistical>
+                            </el-tab-pane>
                         </el-tabs>
                     </div>
                 </div>
@@ -54,8 +58,10 @@
    </div>
 </template>
 <script>
-//引入工作台
+//引入工作台、审批台、统计
 import workstage from './workstage'
+import approvalstage from './approvalstage'
+import statistical from './statistical'
 export default {
     data(){
         return{
@@ -63,7 +69,9 @@ export default {
         }
     },
     components:{
-        'workstage':workstage
+        'workstage':workstage,
+        'approvalstage':approvalstage,
+        'statistical':statistical
     },
     methods: {
       handleClick(tab, event) {
@@ -81,7 +89,7 @@ export default {
     position: relative;
     width: 1305px;
     height: 0;
-    padding-bottom: 100%;
+    padding-bottom: 70%;
     margin: 0 auto;
     z-index: 999;
 
@@ -143,23 +151,23 @@ export default {
                 color: #ffffff;
                 margin: auto 0;
                 margin-left: 20px;
+                cursor: pointer;
             }
         }
     }
     // 中部
     .main-middle{
         position: absolute;
-        top: 130px;
+        top: 150px;
         width: 100%;
         height: 740px;
         .main-tab{
-            border: 1px solid black;
             //改写tab样式
             .el-tabs__nav-wrap {
-                margin-bottom: 60px;
+                margin-bottom: 30px;
             }
             .el-tabs__item {
-                padding: 0 140px 0 0;
+                padding: 0 140px 0 5px;
                 height: 48px;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
@@ -201,9 +209,11 @@ export default {
         }
         .main-import{
             height: 45px;
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+            z-index: 999;
             .import{
-                position: absolute;
-                right: 0;
                 width: 115px;
                 height: 43px;
                 text-align: center;
