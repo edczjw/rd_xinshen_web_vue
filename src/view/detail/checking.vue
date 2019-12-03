@@ -43,7 +43,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="ck-se">
                                 <div class="ck-tit">审批结论</div>
                                 <div class="ck-select">
@@ -65,6 +64,143 @@
                                         placeholder="请输入内容"
                                         v-model="textarea">
                                         </el-input>
+                                    </div>
+                                </div>
+
+                                <div class="ck-se">
+                                <div class="ck-tit">申请人信息</div>
+                                <div class="ck-select">
+                                    <el-select placeholder="请选择">
+                                    <el-option label="通过" value="shanghai"></el-option>
+                                    <el-option label="拒绝" value="beijing"></el-option>
+                                    <el-option label="待补件" value="beijing"></el-option>
+                                    </el-select>
+                                </div>
+                                <div class="ck-button">
+                                    提交
+                                </div>
+                                </div>
+                                <div class="ck-pag">
+                                    <div class="ck-table" style="height:256px;">
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">姓名：刘德华</el-col>
+                                            <el-col :span="8">注册手机号：132323322322</el-col>
+                                            <el-col :span="8">
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col>身份证：441498898998989899</el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">
+                                                <span>生肖：龙</span>   
+                                                <span>性别：男</span>    
+                                                <span>年龄：22</span>
+                                            </el-col>
+                                            <el-col :span="8">申请手机号：132323332222</el-col>
+                                            <el-col :span="8">
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col>工作单位：广州民盛互联网小额贷款有限公司</el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">单位地址：广州越秀区长堤大马路224-246号</el-col>
+                                            <el-col :span="8">银行预留手机号：132323223322</el-col>
+                                            <el-col :span="8">
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">工作单位：广州越秀区长堤大马路224-246号</el-col>
+                                            <el-col :span="8">其他手机号：132323223322</el-col>
+                                            <el-col :span="8">
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </div>
+
+                                <div class="ck-se">
+                                <div class="ck-tit">联系人信息</div>
+                                </div>
+                                <div class="ck-pag">
+                                    <div class="ck-table" style="height:146px;">
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">姓名：刘德华</el-col>
+                                            <el-col :span="8">姓名：刘德华</el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">关系：父母</el-col>
+                                            <el-col :span="8">关系：父母</el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">
+                                                电话：13202020000
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                电话：13202020000
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="ck-se">
+                                <div class="ck-tit">借款信息</div>
+                                </div>
+                                <div class="ck-pag">
+                                    <div class="ck-table" style="height:146px;">
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">借款金额：12222222</el-col>
+                                            <el-col :span="8">订单金额：12222222</el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">借款期限：24</el-col>
+                                            <el-col :span="8">还款方式：等额本息</el-col>
+                                            <el-col :span="8">
+                                                <div class="ckrow-button">详细还款计划</div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">
+                                                银行卡：6216617001004837901
+                                            </el-col>
+                                            <el-col :span="8">
+                                                还款日：12
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="ck-se">
+                                <div class="ck-tit">联系人信息</div>
+                                </div>
+                                <div class="ck-pag">
+                                    <div class="ck-table" style="height:146px;">
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">姓名：刘德华</el-col>
+                                            <el-col :span="8">姓名：刘德华</el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">关系：父母</el-col>
+                                            <el-col :span="8">关系：父母</el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="8">
+                                                电话：13202020000
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                电话：13202020000
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </div>
                             </div>
