@@ -25,33 +25,49 @@
 
                 <!-- 中部 -->
                 <div class="main-middle">
-                    <div class="main-import">
-                        <div class="import" @click="dialogFormVisible = true">
-                            <i class="el-icon-upload2"></i>导入
-                        </div>
-                    </div>
                     <div class="main-tab">
-                        <el-tabs v-model="activeName" @tab-click="handleClick">
-                            <el-tab-pane v-if="showworkstage"><span slot="label">
-                                <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-gongzuotai4" />
-                            </svg>工作台</span>
-                            <!-- 引入工作台子组件 -->
-                            <workstage></workstage>
-                            </el-tab-pane>
-                            <el-tab-pane><span slot="label">
-                                <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-examine" />
-                            </svg>审批台</span>
-                            <!-- 引入审批台子组件 -->
-                            <approvalstage></approvalstage>
-                            </el-tab-pane>
-                            <el-tab-pane><span slot="label">
-                                <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-tongji3" />
-                            </svg>统计</span>
-                            <!-- 引入统计子组件 -->
-                            <statistical></statistical>
+                        <el-tabs v-model="activeName">
+                            <el-tab-pane>
+                            <span slot="label">
+                                审批：20199999979898
+                            </span>
+                            <div class="checking-box">
+                                <div class="ck-tit">规则提示信息</div>
+                                <div class="ck-pag">
+                                    <div class="ck-table">
+                                        <p>1、3个月内申请人借贷平台数</p>
+                                        <p>2、1个月内申请人借贷申请平台数</p>
+                                        <p>3、7天内申请借贷申请平台数</p>
+                                        <p>4、信用分</p>
+                                        <p>5、同盾欺诈分</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="ck-se">
+                                <div class="ck-tit">审批结论</div>
+                                <div class="ck-select">
+                                    <el-select placeholder="请选择">
+                                    <el-option label="通过" value="shanghai"></el-option>
+                                    <el-option label="拒绝" value="beijing"></el-option>
+                                    <el-option label="待补件" value="beijing"></el-option>
+                                    </el-select>
+                                </div>
+                                <div class="ck-button">
+                                    提交
+                                </div>
+                                </div>
+                                <div class="ck-pag">
+                                    <div class="ck-table">
+                                        <el-input
+                                        type="textarea"
+                                        :rows=6
+                                        placeholder="请输入内容"
+                                        v-model="textarea">
+                                        </el-input>
+                                    </div>
+                                </div>
+                            </div>
                             </el-tab-pane>
                         </el-tabs>
                     </div>
@@ -59,55 +75,27 @@
 
             </div>
         </div>
-
-         <!-- 导入表格弹框 -->
-        <el-dialog title="导入文件" append-to-body='true' :visible.sync="dialogFormVisible">
-            
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="input">确 定</el-button>
-        </div>
-        </el-dialog>
    </div>
 </template>
 <script>
-//引入工作台、审批台、统计
-import workstage from './workstage'
-import approvalstage from './approvalstage'
-import statistical from './statistical'
 export default {
     data(){
         return{
-            showworkstage:true,//显示工作台
-            dialogFormVisible: false,
-            showinputdialog:false,
             activeName: '0',
+            textarea: '',   //审批结论
         }
     },
     components:{
-        'workstage':workstage,
-        'approvalstage':approvalstage,
-        'statistical':statistical
+
     },
     methods: {
-        //导入文件
-        input(){
-            this.dialogFormVisible=false
-        },
-        //打开导入文件弹框
-        open(){
 
-        },
-
-        //切换tab时事件
-        handleClick(tab, event) {
-            console.log(tab, event);
-        },
     }
 }
 </script>
 
 <style lang="less">
+@import'../style/common.css';
 @import'../style/main.css';
 // 版心
 .main-banxin{
@@ -186,14 +174,14 @@ export default {
         position: absolute;
         top: 150px;
         width: 100%;
-        height: 740px;
+        min-height: 740px;
         .main-tab{
             //改写tab样式
             .el-tabs__nav-wrap {
                 margin-bottom: 30px;
             }
             .el-tabs__item {
-                padding: 0 140px 0 5px;
+                padding: 0 0 0 8px;
                 height: 48px;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;

@@ -68,17 +68,16 @@
                     element-loading-text="拼命加载中"
                     element-loading-spinner="el-icon-loading"
                     element-loading-background="rgba(0, 0, 0, 0.8)"
-                    style="width: 100%; height:100%;"
-                    highlight-current-row
+                    style="width:100%; height:100%;"
                 >
-                    <el-table-column type="index" label="处理日" align="center"></el-table-column>
+                    <el-table-column type="index" label="处理日" align="center" width="165" ></el-table-column>
                     <el-table-column type="index" label="申请流水号" align="center" width="145"></el-table-column>
-                    <el-table-column type="index" label="产品/项目" align="center" width="135"></el-table-column>
-                    <el-table-column type="index" label="授信金额" align="center" width="125"></el-table-column>
-                    <el-table-column type="index" label="贷款金额" align="center" width="125"></el-table-column>
-                    <el-table-column type="index" label="审批状态" align="center" width="115"></el-table-column>
-                    <el-table-column type="index" label="申请日" align="center" width="138"></el-table-column>
-                    <el-table-column type="index" label="流入日" align="center"></el-table-column>
+                    <el-table-column type="index" label="产品/项目" align="center" width="145"></el-table-column>
+                    <el-table-column type="index" label="授信金额" align="center" width="145"></el-table-column>
+                    <el-table-column type="index" label="贷款金额" align="center" width="145"></el-table-column>
+                    <el-table-column type="index" label="审批状态" align="center" width="145"></el-table-column>
+                    <el-table-column type="index" label="申请日" align="center" width="145"></el-table-column>
+                    <el-table-column type="index" label="流入日" align="center" width="165"  ></el-table-column>
                     </el-table>
 
                 <div class="bk-tab-foot">
@@ -101,7 +100,7 @@
 export default {
     data(){
         return{
-            count:'',
+            count:0,
             tableData: [{
           index: '王小虎',
         },{
@@ -117,11 +116,27 @@ export default {
                 date1:'',
                 date2:'',
                 name:'',
-                pageIndex:'',
-                pageSize:'',
+                pageIndex:0,
+                pageSize:50,
             }
         }
-    }
+    },
+    methods: {
+        
+        handleSizeChange(psize) {
+        // 改变每页显示的条数
+        this.form.pageSize = psize;
+        // 注意：在改变每页显示的条数时，要将页码显示到第一页
+        this.form.pageIndex = 1;
+        // this.load(this.form);
+        },
+
+        // 初始页currentPage
+        handleCurrentChange(pindex) {
+        this.form.pageIndex = pindex;
+        // this.load(this.form);
+        },
+    },
 }
 </script>
 <style lang="less">

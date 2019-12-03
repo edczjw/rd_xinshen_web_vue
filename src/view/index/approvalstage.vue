@@ -9,13 +9,15 @@
                     </el-row>
                 </div>
                 <el-form-item>
+                    <el-row  :gutter="24">
                     <el-col :span="6">
                     <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 80%;" ></el-date-picker>
                     </el-col>
-                    <el-col class="line" :span=1>-</el-col>
+                    <el-col class="line" :span='1'>-</el-col>
                     <el-col :span="6">
                     <el-date-picker type="date" placeholder="选择时间" v-model="form.date2" style="width: 80%;"></el-date-picker>
                     </el-col>
+                    </el-row>
                 </el-form-item>
 
                 <div class="form-tit">
@@ -75,7 +77,7 @@
                     style="width: 100%; height:100%;"
                     highlight-current-row
                 >
-                    <el-table-column type="index" label="选择" align="center" width="55"></el-table-column>
+                    <el-table-column type="index" label="序号" align="center" width="55"></el-table-column>
                     <el-table-column type="index" label="申请流水" align="center" width="145"></el-table-column>
                     <el-table-column type="index" label="三方用户号" align="center" width="105"></el-table-column>
                     <el-table-column type="index" label="姓名" align="center" width="85"></el-table-column>
@@ -109,7 +111,7 @@
 export default {
     data(){
         return{
-            count:'',
+            count:0,
             tableData: [{
           index: '王小虎',
         },{
@@ -125,11 +127,26 @@ export default {
                 date1:'',
                 date2:'',
                 name:'',
-                pageIndex:'',
-                pageSize:'',
+                pageIndex:0,
+                pageSize:50,
             }
         }
-    }
+    },
+    methods: {
+        handleSizeChange(psize) {
+        // 改变每页显示的条数
+        this.form.pageSize = psize;
+        // 注意：在改变每页显示的条数时，要将页码显示到第一页
+        this.form.pageIndex = 1;
+        // this.load(this.form);
+        },
+
+        // 初始页currentPage
+        handleCurrentChange(pindex) {
+        this.form.pageIndex = pindex;
+        // this.load(this.form);
+        },
+    },
 }
 </script>
 <style lang="less">

@@ -46,6 +46,22 @@
   letter-spacing: 0px;
   border-radius: 4px;
   color: #2670f3;
+  cursor: pointer;
+}
+.bk .f-paidan {
+  width: 112px;
+  height: 39px;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 39px;
+  text-align: center;
+  letter-spacing: 0px;
+  border-radius: 4px;
+  color: #2670f3;
+  cursor: pointer;
 }
 .bk .el-form-item {
   margin-bottom: 0px !important;
@@ -70,6 +86,87 @@
 }
 .bk .bk-tab-foot {
   margin: 20px auto;
+}
+.bk .el-form-item .el-input__inner {
+  width: 272px;
+}
+.checking-box {
+  width: 1300px;
+  height: 2400px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 14px 2px rgba(73, 119, 252, 0.29);
+  border-radius: 8px;
+  margin: 0 auto;
+}
+.checking-box .ck-tit {
+  width: 120px;
+  padding: 26px;
+  height: 20px;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #252e47;
+}
+.checking-box .ck-pag {
+  width: 1248px;
+  height: 195px;
+  line-height: 100%;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  color: #515a6e;
+  margin: 0 auto;
+  display: table;
+}
+.checking-box .ck-pag .ck-table {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  padding: 0 20px;
+}
+.checking-box .ck-pag .ck-table .el-textarea__inner {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  color: #aaabb8;
+  font-size: 16px;
+}
+.checking-box .ck-se {
+  width: 512px;
+  position: relative;
+  display: inline-flex;
+}
+.checking-box .ck-se .el-select {
+  width: 163px;
+  height: 39px;
+}
+.checking-box .ck-select {
+  position: absolute;
+  top: 50%;
+  margin-top: -19.5px;
+  right: 170px;
+}
+.checking-box .ck-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -19.5px;
+  width: 112px;
+  height: 39px;
+  cursor: pointer;
+  background-image: linear-gradient(229deg, #2670f3 0%, #78a7fa 100%), linear-gradient(#2670f3, #2670f3);
+  background-blend-mode: normal, 
+            normal;
+  border-radius: 4px;
+  border: solid 1px #d8e2f0;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 39px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #ffffff;
+  margin-left: 30px;
 }
 .lg-title {
   width: 100%;
