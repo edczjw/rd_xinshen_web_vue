@@ -26,11 +26,15 @@
                 <!-- 中部 -->
                 <div class="main-middle">
                     <div class="main-tab">
-                        <el-tabs v-model="activeName">
-                            <el-tab-pane>
-                            <span slot="label">
-                                审批：20199999979898
-                            </span>
+                        <div class="bititle">
+                        <div class="back" @click="goBack">
+                            <i class="el-icon-back"></i>返回
+                        </div>
+                        <div class="ji">
+                            审批：20199999979898
+                        </div>
+                        </div>
+                            <div style="margin-bottom:100px;">
                             <div class="checking-box">
                                 <div class="ck-tit">规则提示信息</div>
                                 <div class="ck-pag">
@@ -83,23 +87,38 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:256px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="8">姓名：刘德华</el-col>
-                                            <el-col :span="8">注册手机号：132323322322</el-col>
-                                            <el-col :span="8">
-                                                <div class="ckrow-button">拨打情况</div>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="ck-row">
-                                            <el-col>身份证：441498898998989899</el-col>
+                                            <el-col :span="12">姓名：刘德华</el-col>
+                                            <el-col :span="12">身份证：441498898998989899</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
                                             <el-col :span="8">
                                                 <span>生肖：龙</span>   
-                                                <span>性别：男</span>    
+                                            </el-col>
+                                            <el-col :span="8"> 
+                                                <span>性别：男</span>   
+                                            </el-col>
+                                            <el-col :span="8">   
                                                 <span>年龄：22</span>
                                             </el-col>
-                                            <el-col :span="8">申请手机号：132323332222</el-col>
-                                            <el-col :span="8">
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="6">申请手机号：132323332222</el-col>
+                                            <el-col :span="6">
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                            <el-col :span="6">注册手机号：132323322322</el-col>
+                                            <el-col :span="6">
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                        </el-row>
+
+                                        <el-row class="ck-row">
+                                            <el-col :span="6">银行预留手机号：132323223322</el-col>
+                                            <el-col :span="6">
+                                                <div class="ckrow-button">拨打情况</div>
+                                            </el-col>
+                                            <el-col :span="6">其他手机号：132323223322</el-col>
+                                            <el-col :span="6">
                                                 <div class="ckrow-button">拨打情况</div>
                                             </el-col>
                                         </el-row>
@@ -107,17 +126,84 @@
                                             <el-col>工作单位：广州民盛互联网小额贷款有限公司</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="8">单位地址：广州越秀区长堤大马路224-246号</el-col>
-                                            <el-col :span="8">银行预留手机号：132323223322</el-col>
-                                            <el-col :span="8">
-                                                <div class="ckrow-button">拨打情况</div>
-                                            </el-col>
+                                            <el-col>单位地址：广州越秀区长堤大马路224-246号</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="8">工作单位：广州越秀区长堤大马路224-246号</el-col>
-                                            <el-col :span="8">其他手机号：132323223322</el-col>
-                                            <el-col :span="8">
-                                                <div class="ckrow-button">拨打情况</div>
+                                            <el-col>工作单位：广州越秀区长堤大马路224-246号</el-col>
+                                        </el-row>
+                                    </div>
+                                </div>
+
+                                <div class="ck-se">
+                                <div class="ck-tit">影像信息</div>
+                                </div>
+                                <div class="ck-pag">
+                                    <div class="ck-table" style="height:100%;">
+                                        <el-row class="ck-row">
+                                            <el-col :span="6" class="go-center">
+                                                <img src="../../assets/images/idup.png" alt="">
+                                                <div class="nk-ok">
+                                                    <div class="df">身份证正面</div>
+                                                    <div class="df-s">
+                                                        <el-select placeholder="请选择" size="mini">
+                                                        <el-option label="通过" value="shanghai"></el-option>
+                                                        <el-option label="拒绝" value="beijing"></el-option>
+                                                        <el-option label="待补件" value="beijing"></el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="6"  class="go-center">
+                                                <img src="../../assets/images/iddown.png" alt="">
+                                                <div class="nk-ok">
+                                                    <div class="df">身份证反面</div>
+                                                    <div class="df-s">
+                                                        <el-select placeholder="请选择" size="mini">
+                                                        <el-option label="通过" value="shanghai"></el-option>
+                                                        <el-option label="拒绝" value="beijing"></el-option>
+                                                        <el-option label="待补件" value="beijing"></el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="6" class="re-img go-center">
+                                                <img src="../../assets/images/human-img.png" alt="">
+                                                <div class="nk-oks">
+                                                    <div class="df">活体截图</div>
+                                                    <div class="df-s">
+                                                        <el-select placeholder="请选择" size="mini">
+                                                        <el-option label="通过" value="shanghai"></el-option>
+                                                        <el-option label="拒绝" value="beijing"></el-option>
+                                                        <el-option label="待补件" value="beijing"></el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="6" class="re-img go-center">
+                                                <img src="../../assets/images/human-img.png" alt="">
+                                                <div class="nk-oks">
+                                                    <div class="df">其他</div>
+                                                    <div class="df-s">
+                                                        <el-select placeholder="请选择" size="mini">
+                                                        <el-option label="通过" value="shanghai"></el-option>
+                                                        <el-option label="拒绝" value="beijing"></el-option>
+                                                        <el-option label="待补件" value="beijing"></el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+                                            </el-col>
+
+                                            <el-col :span="6" class="re-img go-center">
+                                                <el-upload
+                                                class="upload-demo"
+                                                drag
+                                                action="https://jsonplaceholder.typicode.com/posts/"
+                                                multiple>
+                                                <i class="el-icon-upload"></i>
+                                                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em><br>
+                                                <b>只能上传jpg/png文件，且不超过500kb</b>
+                                                </div>
+                                                </el-upload>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -129,20 +215,24 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:146px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="8">姓名：刘德华</el-col>
-                                            <el-col :span="8">姓名：刘德华</el-col>
+                                            <el-col :span="12">姓名：刘德华</el-col>
+                                            <el-col :span="12">姓名：刘德华</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="8">关系：父母</el-col>
-                                            <el-col :span="8">关系：父母</el-col>
+                                            <el-col :span="12">关系：父母</el-col>
+                                            <el-col :span="12">关系：父母</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="8">
+                                            <el-col :span="6">
                                                 电话：13202020000
+                                            </el-col>
+                                            <el-col :span="6">
                                                 <div class="ckrow-button">拨打情况</div>
                                             </el-col>
-                                            <el-col :span="8">
+                                            <el-col :span="6">
                                                 电话：13202020000
+                                            </el-col>
+                                            <el-col :span="6">
                                                 <div class="ckrow-button">拨打情况</div>
                                             </el-col>
                                         </el-row>
@@ -156,21 +246,21 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:146px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="8">借款金额：12222222</el-col>
-                                            <el-col :span="8">订单金额：12222222</el-col>
+                                            <el-col :span="12">借款金额：12222222</el-col>
+                                            <el-col :span="12">订单金额：12222222</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="8">借款期限：24</el-col>
-                                            <el-col :span="8">还款方式：等额本息</el-col>
-                                            <el-col :span="8">
+                                            <el-col :span="12">借款期限：24</el-col>
+                                            <el-col :span="6">还款方式：等额本息</el-col>
+                                            <el-col :span="6">
                                                 <div class="ckrow-button">详细还款计划</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="8">
+                                            <el-col :span="12">
                                                 银行卡：6216617001004837901
                                             </el-col>
-                                            <el-col :span="8">
+                                            <el-col :span="12">
                                                 还款日：12
                                             </el-col>
                                         </el-row>
@@ -179,31 +269,30 @@
 
                                 
                                 <div class="ck-se">
-                                <div class="ck-tit">联系人信息</div>
+                                <div class="ck-tit">商户信息</div>
                                 </div>
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:146px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="8">姓名：刘德华</el-col>
-                                            <el-col :span="8">姓名：刘德华</el-col>
+                                            <el-col>商户名称：大德路西餐厅</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="8">关系：父母</el-col>
-                                            <el-col :span="8">关系：父母</el-col>
+                                            <el-col>商户地址：广州市越秀区大德路623号首层</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="8">
-                                                电话：13202020000
-                                                <div class="ckrow-button">拨打情况</div>
+                                            <el-col :span="12">
+                                                商户联系人：张学友
                                             </el-col>
-                                            <el-col :span="8">
-                                                电话：13202020000
+                                            <el-col :span="6">
+                                                联系电话：13202020000
+                                            </el-col>
+                                            <el-col :span="6">
                                                 <div class="ckrow-button">拨打情况</div>
                                             </el-col>
                                         </el-row>
                                     </div>
                                 </div>
-                            </div>
+                            </div></div>
                             </el-tab-pane>
                         </el-tabs>
                     </div>
@@ -225,7 +314,10 @@ export default {
 
     },
     methods: {
-
+        //返回上一页
+        goBack() {
+        this.$router.push('/mainhome')
+      }
     }
 }
 </script>
@@ -312,6 +404,25 @@ export default {
         width: 100%;
         min-height: 740px;
         .main-tab{
+            .bititle{
+                height: 45px;
+                line-height: 45px;
+                margin-bottom: 30px;
+                padding: 0 5px;
+                .back{
+                    float: left;
+                    color: #ffffff;
+                    font-size: 20px;
+                    cursor: pointer;
+                }
+                .ji{
+                    float: right;
+                    color: #ffffff;
+                    font-size: 20px;
+                    border-bottom: 5px solid #ffffff;
+                    cursor: pointer;
+                }
+            }
             //改写tab样式
             .el-tabs__nav-wrap {
                 margin-bottom: 30px;
