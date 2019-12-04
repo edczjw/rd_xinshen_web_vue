@@ -31,58 +31,21 @@
                             <i class="el-icon-back"></i>返回
                         </div>
                         <div class="ji">
-                            审批：20199999979898
+                            已处理：20199999979898
                         </div>
                         </div>
                             <div style="margin-bottom:100px;">
                             <div class="checking-box">
-                                <div class="ck-tit">规则提示信息</div>
+                                <div class="ck-tit">审批结论：通过</div>
                                 <div class="ck-pag">
-                                    <div class="ck-table">
-                                        <p>1、3个月内申请人借贷平台数</p>
-                                        <p>2、1个月内申请人借贷申请平台数</p>
-                                        <p>3、7天内申请借贷申请平台数</p>
-                                        <p>4、信用分</p>
-                                        <p>5、同盾欺诈分</p>
-                                    </div>
-                                </div>
-
-                                <div class="ck-se">
-                                <div class="ck-tit">审批结论</div>
-                                <div class="ck-select">
-                                    <el-select placeholder="请选择">
-                                    <el-option label="通过" value="shanghai"></el-option>
-                                    <el-option label="拒绝" value="beijing"></el-option>
-                                    <el-option label="待补件" value="beijing"></el-option>
-                                    </el-select>
-                                </div>
-                                <div class="ck-button">
-                                    提交
-                                </div>
-                                </div>
-                                <div class="ck-pag">
-                                    <div class="ck-table">
-                                        <el-input
-                                        type="textarea"
-                                        :rows=6
-                                        placeholder="请输入内容"
-                                        v-model="textarea">
-                                        </el-input>
+                                    <div class="ck-table" style="text-align:justify;line-height:25px;">
+                                        <p style="text-indent:2em">结论通过法律、国务院行政法规对行政审批项目的实施范围作了明确规定的，审批部门要严格按照其规定实施，不得扩大实施范围。其他各类规范性文件对法律、国务院行政法规规定的实施范围作了扩大性规定的，应按无效处理；作了缩小性规定的，才能依照其规定执行。法律、国务院行政法规对行政审批项目的实施范围作了明确规定的，审批部门要严格按照其规定实施，不得扩大实施范围。其他各类规范性文件对法律、国务院行政法规规定的实施范围作了扩大性规定的，应按无效处理；作了缩小性规定的，才能依照其规定执行。国务院行政法规对行政审批项目的实施范围作了明确规定的，审批部门要严格按照其规定实施。</p>
                                     </div>
                                 </div>
 
                                 <div class="ck-se">
                                 <div class="ck-tit">申请人信息</div>
-                                <div class="ck-select">
-                                    <el-select placeholder="请选择">
-                                    <el-option label="通过" value="shanghai"></el-option>
-                                    <el-option label="拒绝" value="beijing"></el-option>
-                                    <el-option label="待补件" value="beijing"></el-option>
-                                    </el-select>
-                                </div>
-                                <div class="ck-button">
-                                    提交
-                                </div>
+                                
                                 </div>
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:256px;">
@@ -104,22 +67,22 @@
                                         <el-row class="ck-row">
                                             <el-col :span="6">申请手机号：132323332222</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
                                             <el-col :span="6">注册手机号：132323322322</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
                                         </el-row>
 
                                         <el-row class="ck-row">
                                             <el-col :span="6">银行预留手机号：132323223322</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
                                             <el-col :span="6">其他手机号：132323223322</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
@@ -144,67 +107,31 @@
                                                 <img src="../../assets/images/idup.png" alt="">
                                                 <div class="nk-ok">
                                                     <div class="df">身份证正面</div>
-                                                    <div class="df-s">
-                                                        <el-select placeholder="请选择" size="mini">
-                                                        <el-option label="通过" value="shanghai"></el-option>
-                                                        <el-option label="拒绝" value="beijing"></el-option>
-                                                        <el-option label="待补件" value="beijing"></el-option>
-                                                        </el-select>
-                                                    </div>
+                                                    <div class="ckrow-buttons" @click="hecha">核查情况</div>
                                                 </div>
                                             </el-col>
                                             <el-col :span="6"  class="go-center">
                                                 <img src="../../assets/images/iddown.png" alt="">
                                                 <div class="nk-ok">
                                                     <div class="df">身份证反面</div>
-                                                    <div class="df-s">
-                                                        <el-select placeholder="请选择" size="mini">
-                                                        <el-option label="通过" value="shanghai"></el-option>
-                                                        <el-option label="拒绝" value="beijing"></el-option>
-                                                        <el-option label="待补件" value="beijing"></el-option>
-                                                        </el-select>
-                                                    </div>
+                                                    <div class="ckrow-buttons" @click="hecha">核查情况</div>
                                                 </div>
                                             </el-col>
                                             <el-col :span="6" class="re-img go-center">
                                                 <img src="../../assets/images/human-img.png" alt="">
                                                 <div class="nk-oks">
                                                     <div class="df">活体截图</div>
-                                                    <div class="df-s">
-                                                        <el-select placeholder="请选择" size="mini">
-                                                        <el-option label="通过" value="shanghai"></el-option>
-                                                        <el-option label="拒绝" value="beijing"></el-option>
-                                                        <el-option label="待补件" value="beijing"></el-option>
-                                                        </el-select>
-                                                    </div>
+                                                    <div class="ckrow-buttons" @click="hecha">核查情况</div>
                                                 </div>
                                             </el-col>
                                             <el-col :span="6" class="re-img go-center">
                                                 <img src="../../assets/images/human-img.png" alt="">
                                                 <div class="nk-oks">
                                                     <div class="df">其他</div>
-                                                    <div class="df-s">
-                                                        <el-select placeholder="请选择" size="mini">
-                                                        <el-option label="通过" value="shanghai"></el-option>
-                                                        <el-option label="拒绝" value="beijing"></el-option>
-                                                        <el-option label="待补件" value="beijing"></el-option>
-                                                        </el-select>
-                                                    </div>
+                                                    <div class="ckrow-buttons" @click="hecha">核查情况</div>
                                                 </div>
                                             </el-col>
 
-                                            <el-col :span="6" class="re-img go-center">
-                                                <el-upload
-                                                class="upload-demo"
-                                                drag
-                                                action="https://jsonplaceholder.typicode.com/posts/"
-                                                multiple>
-                                                <i class="el-icon-upload"></i>
-                                                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em><br>
-                                                <b>只能上传jpg/png文件，且不超过500kb</b>
-                                                </div>
-                                                </el-upload>
-                                            </el-col>
                                         </el-row>
                                     </div>
                                 </div>
@@ -227,13 +154,13 @@
                                                 电话：13202020000
                                             </el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
                                             <el-col :span="6">
                                                 电话：13202020000
                                             </el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -253,7 +180,7 @@
                                             <el-col :span="12">借款期限：24</el-col>
                                             <el-col :span="6">还款方式：等额本息</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">详细还款计划</div>
+                                                <div class="ckrow-button" @click="showrepayplan">详细还款计划</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
@@ -287,7 +214,7 @@
                                                 联系电话：13202020000
                                             </el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -300,13 +227,78 @@
 
             </div>
         </div>
+
+        <!-- 还款计划查看弹框 -->
+        <el-dialog title="还款计划" center :visible.sync="dialogTableVisible">
+            <el-table
+            :data="tableData"
+            border
+            size="mini"
+            stripe
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="rgba(0, 0, 0, 0.8)"
+            style="width:100%; height:100%;"
+        >
+            <el-table-column type="index" label="期数" align="center"></el-table-column>
+            <el-table-column type="index" label="还款日" align="center" width="145"></el-table-column>
+            <el-table-column type="index" label="应还款金额" align="center" width="145"></el-table-column>
+            <el-table-column type="index" label="应还本金" align="center" width="145"></el-table-column>
+            <el-table-column type="index" label="应还利息" align="center" width="145"></el-table-column>
+            <el-table-column type="index" label="应还其他费用" align="center"></el-table-column>
+            </el-table>
+        </el-dialog>
+
+        <!-- 电核情况 -->
+        <el-dialog title="电核情况" center :visible.sync="dialogdianheVisible">
+            <el-collapse v-model="activeName" accordion>
+            <el-collapse-item title="2019.10.31 18:42:50">
+                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
+                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            </el-collapse-item>
+            <el-collapse-item title="2019.10.31 18:42:50">
+                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
+                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            </el-collapse-item>
+            <el-collapse-item title="2019.10.31 18:42:50">
+                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
+                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            </el-collapse-item>
+            </el-collapse>
+        </el-dialog>
+
+        <!-- 核查情况 -->
+        <el-dialog :visible.sync="dialoghechaVisible">
+            <div style="width:100%;text-align:center;font-size: 20px;">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-icon-test" />
+                </svg>符合规范
+            </div>
+            <div style="width: 100%;height: 78px;font-size: 18px;color: #aaabb8;margin:20px auto;text-indent:2em">
+                此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息
+            </div>
+        </el-dialog>
    </div>
 </template>
 <script>
 export default {
     data(){
         return{
-            activeName: '0',
+            tableData: [{
+            index: '王小虎',
+            },{
+            index: '王小虎',
+            },{
+            index: '王小虎',
+            },{
+            index: '王小虎',
+            },{
+            index: '王小虎',
+            },],
+            dialogTableVisible: false,//还款计划弹框
+            dialogdianheVisible: false,//电核情况
+            dialoghechaVisible:false,//核查情况
+            activeName: '',//电核情况内容
             textarea: '',   //审批结论
         }
     },
@@ -314,6 +306,19 @@ export default {
 
     },
     methods: {
+        //核查情况
+        hecha(){
+            this.dialoghechaVisible = true;
+        },
+        // 查看电核情况
+        dianhe(){
+            this.dialogdianheVisible = true;
+        },
+        //查看还款计划
+        showrepayplan(){
+            this.dialogTableVisible = true;
+        },
+
         //返回上一页
         goBack() {
         this.$router.push('/mainhome')

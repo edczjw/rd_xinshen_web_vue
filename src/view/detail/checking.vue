@@ -104,22 +104,22 @@
                                         <el-row class="ck-row">
                                             <el-col :span="6">申请手机号：132323332222</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="boda">拨打情况</div>
                                             </el-col>
                                             <el-col :span="6">注册手机号：132323322322</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="boda">拨打情况</div>
                                             </el-col>
                                         </el-row>
 
                                         <el-row class="ck-row">
                                             <el-col :span="6">银行预留手机号：132323223322</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="boda">拨打情况</div>
                                             </el-col>
                                             <el-col :span="6">其他手机号：132323223322</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="boda">拨打情况</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
@@ -227,13 +227,13 @@
                                                 电话：13202020000
                                             </el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="boda">拨打情况</div>
                                             </el-col>
                                             <el-col :span="6">
                                                 电话：13202020000
                                             </el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="boda">拨打情况</div>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -253,7 +253,7 @@
                                             <el-col :span="12">借款期限：24</el-col>
                                             <el-col :span="6">还款方式：等额本息</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">详细还款计划</div>
+                                                <div class="ckrow-button"  @click="showrepayplan">详细还款计划</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
@@ -287,7 +287,7 @@
                                                 联系电话：13202020000
                                             </el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button">拨打情况</div>
+                                                <div class="ckrow-button" @click="boda">拨打情况</div>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -300,13 +300,74 @@
 
             </div>
         </div>
+        
+        <!-- 拨打情况弹框 -->
+        <el-dialog title="拨打情况" center :visible.sync="dialogbodaVisible">
+            <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item label="拨打情况">
+                <el-select v-model="form.region" placeholder="请选择活动区域">
+                <el-option label="接通-本人" value="shanghai"></el-option>
+                <el-option label="接通-非本人" value="beijing"></el-option>
+                <el-option label="通话中" value="beijing"></el-option>
+                <el-option label="挂断" value="beijing"></el-option>
+                <el-option label="无人接听" value="beijing"></el-option>
+                <el-option label="停机" value="beijing"></el-option>
+                <el-option label="关机" value="beijing"></el-option>
+                </el-select>
+            </el-form-item>
+             <el-form-item label="沟通详情">
+                <el-input type="textarea" :rows="4" v-model="form.region"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit">确定</el-button>
+                <el-button>取消</el-button>
+            </el-form-item>
+            </el-form>
+        </el-dialog>
+
+        
+        <!-- 还款计划查看弹框 -->
+        <el-dialog title="还款计划" center :visible.sync="dialogTableVisible">
+            <el-table
+            :data="tableData"
+            border
+            size="mini"
+            stripe
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="rgba(0, 0, 0, 0.8)"
+            style="width:100%; height:100%;"
+        >
+            <el-table-column label="期数" align="center"></el-table-column>
+            <el-table-column type="index" label="还款日" align="center" width="145"></el-table-column>
+            <el-table-column type="index" label="应还款金额" align="center" width="145"></el-table-column>
+            <el-table-column type="index" label="应还本金" align="center" width="145"></el-table-column>
+            <el-table-column type="index" label="应还利息" align="center" width="145"></el-table-column>
+            <el-table-column label="应还其他费用" align="center"></el-table-column>
+            </el-table>
+        </el-dialog>
    </div>
 </template>
 <script>
 export default {
     data(){
         return{
-            activeName: '0',
+            tableData: [{
+            index: '王小虎',
+            },{
+            index: '王小虎',
+            },{
+            index: '王小虎',
+            },{
+            index: '王小虎',
+            },{
+            index: '王小虎',
+            },],
+            form:{
+                region:''
+            },
+            dialogbodaVisible:false,//拨打情况
+            dialogTableVisible: false,//还款计划弹框
             textarea: '',   //审批结论
         }
     },
@@ -314,6 +375,18 @@ export default {
 
     },
     methods: {
+        boda(){
+            this.dialogbodaVisible = true;
+        },
+        //拨打情况提交
+        onSubmit() {
+            console.log('submit!');
+        },
+        //查看还款计划
+        showrepayplan(){
+            this.dialogTableVisible = true;
+        },
+
         //返回上一页
         goBack() {
         this.$router.push('/mainhome')

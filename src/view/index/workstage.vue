@@ -111,7 +111,7 @@
         </div>
 
         <!-- 派单弹框 -->
-        <el-dialog title="派单分配" append-to-body='true' :visible.sync="dialogFormVisible">
+        <el-dialog title="派单分配" append-to-body :visible.sync="dialogFormVisible">
         <el-form :model="form">
             <div style="width:100%;text-align:center;padding:20px 0;font-size:18px;">
             已选择任务件：{{hselected}}，其中中移和包：2，海拍客：1</div>

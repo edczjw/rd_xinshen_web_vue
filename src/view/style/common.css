@@ -71,7 +71,13 @@
   margin: 0 auto;
   margin-top: 80px;
 }
-.bk .el-table--border th {
+.bk .bk-tab-foot {
+  margin: 20px auto;
+}
+.bk .el-form-item .el-input__inner {
+  width: 272px;
+}
+.el-table--border th {
   background-color: #ebf7ff;
   font-size: 16px;
   font-weight: bold;
@@ -80,19 +86,16 @@
   color: #252e47;
   height: 51px;
 }
-.bk td {
+td {
   color: #515a6e;
   height: 46px;
 }
-.bk .bk-tab-foot {
-  margin: 20px auto;
-}
-.bk .el-form-item .el-input__inner {
-  width: 272px;
+.el-dialog {
+  border-radius: 15px;
 }
 .checking-box {
   width: 1300px;
-  min-height: 2400px;
+  min-height: 1950px;
   background-color: #ffffff;
   box-shadow: 0px 0px 14px 2px rgba(73, 119, 252, 0.29);
   border-radius: 8px;
@@ -100,7 +103,7 @@
   padding-bottom: 30px;
 }
 .checking-box .ck-tit {
-  width: 120px;
+  width: 140px;
   padding: 26px;
   height: 20px;
   font-size: 20px;
@@ -135,8 +138,8 @@
 }
 .checking-box .ck-pag .ck-table .ck-row {
   font-size: 16px;
-  height: 44px;
-  line-height: 44px;
+  height: 48px;
+  line-height: 48px;
 }
 .checking-box .ck-pag .ck-table .ck-row span {
   margin-right: 50px;
@@ -196,12 +199,28 @@
 .checking-box .ck-pag .ck-table .ck-row .nk-ok .df-s {
   flex: 1;
   height: 39px;
+  text-align: left;
 }
 .checking-box .ck-pag .ck-table .ck-row .nk-ok .df-s .el-select {
   width: 123px;
 }
 .checking-box .ck-pag .ck-table .ck-row .nk-ok .df-s span {
   margin-right: 0px !important;
+}
+.checking-box .ck-pag .ck-table .ck-row .nk-ok .ckrow-buttons {
+  margin-right: 30px;
+  width: 112px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  border-image-slice: 1;
+  line-height: 38px;
+  letter-spacing: 0px;
+  color: #2c74f3;
 }
 .checking-box .ck-pag .ck-table .ck-row .nk-oks {
   display: flex;
@@ -226,6 +245,20 @@
 }
 .checking-box .ck-pag .ck-table .ck-row .nk-oks .df-s span {
   margin-right: 0px !important;
+}
+.checking-box .ck-pag .ck-table .ck-row .nk-oks .ckrow-buttons {
+  width: 112px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  border-image-slice: 1;
+  line-height: 38px;
+  letter-spacing: 0px;
+  color: #2c74f3;
 }
 .checking-box .ck-se {
   width: 512px;

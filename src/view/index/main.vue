@@ -26,7 +26,7 @@
                 <!-- 中部 -->
                 <div class="main-middle">
                     <div class="main-import">
-                        <div class="import" @click="dialogFormVisible = true">
+                        <div class="import" @click="dialogFormVisible = !dialogFormVisible">
                             <i class="el-icon-upload2"></i>导入
                         </div>
                     </div>
@@ -61,12 +61,21 @@
         </div>
 
          <!-- 导入表格弹框 -->
-        <el-dialog title="导入文件" append-to-body='true' :visible.sync="dialogFormVisible">
-            
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="input">确 定</el-button>
-        </div>
+        <el-dialog title="导入文件" append-to-body :visible.sync="dialogFormVisible">
+            <div style="width:100%;text-align:center;height:40px;line-height:40px;">
+                <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-biaoge3" />
+                </svg>上传EXCEL表格</div>
+            <div style="width:100%;text-align:center;height:40px;line-height:40px;">
+                <form id="form-article-add" method="post" enctype="multipart/form-data">  
+                <input type="file" name="file" @change="pickFile" 
+                accept=".xls, .xlsx, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                </form>
+            </div>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = !dialogFormVisible">取 消</el-button>
+                <el-button type="primary" @click="insertfile">导入<i class="el-icon-upload el-icon--right"></i></el-button>
+            </div>
         </el-dialog>
    </div>
 </template>
@@ -90,15 +99,162 @@ export default {
         'statistical':statistical
     },
     methods: {
-        //导入文件
-        input(){
-            this.dialogFormVisible=false
-        },
-        //打开导入文件弹框
-        open(){
+        //生成
+    profile() {
+      if(this.searchform.date !=''){
+      let data = {
+        date:this.searchform.date
+      };
+      const url = this.$store.state.domain + "/file/loanFile/create";
+      this.$http.post(url, data, {
+          emulateJSON: true
+      })
+        .then(response => {
+          if(response.code == 0){
+            this.$message({
+              message: response.data.msg,
+              type: "success"
+            });
+          }else{
+            this.$message({
+              message: response.data.msg,
+              type: "error"
+            });
+          }
+        })
+        .catch(err => {
+          this.$message({
+              message: '您的账号无此菜单查看权限，谢谢合作',
+              type: "error"
+            });
+        });
+        
+      }else{
+        this.$message({
+              message: '请选择日期',
+              type: "error"
+            });
+      }
 
-        },
+    },
+    //下载
+    downloadfile() {
+      if(this.searchform.date != ''){
+      let data = {
+        date:this.searchform.date
+      };
+      const url = this.$store.state.domain + "/file/loanFile/download";
+      this.$http
+        .post(url, data, {
+          responseType: "blob",
+          emulateJSON: true
+        })
+        .then(res => {
+          if(res.data.code){
+                 if(res.data.code == 1){
+                   this.$message({
+                          message: res.data.msg,
+                          type: "error"
+                        });
+                    }
+              }else{
+                let blob = new Blob([res.body], {
+                    type: "application/octet-stream"
+                  });
+                  if (window.navigator.msSaveOrOpenBlob) {
+                    navigator.msSaveBlob(blob);
+                  } else {
+                    let elink = document.createElement("a");
+                    elink.download = this.searchform.date + 'loanFile' + ".xls";
+                    elink.style.display = "none";
+                    elink.href = URL.createObjectURL(blob);
+                    document.body.appendChild(elink);
+                    elink.click();
+                    document.body.removeChild(elink);
+                  }
+              }
+        })
+        .catch(err => {
+          this.$message({
+              message: '您的账号无此菜单查看权限，谢谢合作',
+              type: "error"
+            });
+        });
+        
+      }else{
+        this.$message({
+              message: '请选择日期',
+              type: "error"
+            });
+      }
 
+    },
+    //上传按钮
+      pickFile(e){
+          var files = e.target.files || e.dataTransfer.files;
+          if(!files.length) return;
+          this.excelTobase(files[0]);
+      },
+
+      excelTobase(file){
+          var that = this;
+          var pos = file.name.lastIndexOf('.');
+          var type = file.name.substring(pos + 1);
+          if(type.toLowerCase() != 'xls' && type.toLowerCase() != 'xlsx' && type.toLowerCase() !='csv'){
+              this.$message.error('请上传xls、xlsx、csv格式的excel文件.');
+              this.canUpload = false;
+          }else{
+              this.fileType = type;
+              this.canUpload = true;
+              this.fileName = file.name.substring(0,pos);
+              this.file = file;
+              var reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = function(e){
+                  that.base64 = e.target.result;
+              };
+           }
+      },
+
+//异步上传
+      async insertfile(){
+          if(this.canUpload){
+			    var FormDatas=new FormData($("#form-article-add")[0]);
+              FormDatas.append("file",FormDatas);
+              this.$axios({
+                  method: "post",
+                  url: this.$store.state.domain + "/file/loanFile/upload",
+                  data: FormDatas,
+                  headers:{'Content-Type':'multipart/form-data'}
+                }).then(
+                  response => {
+                    var res = response.data;
+                    if (res.code == 0) {
+                        this.$message({
+                          message: res.msg,
+                          type: 'success'
+                        });
+                    } else {
+                      this.$message({
+                        message: res.msg,
+                        type: "error"
+                      });
+                    }
+                  },
+                  error => {
+                    this.$message({
+                        message: '您的账号无此菜单查看权限，谢谢合作',
+                        type: "error"
+                      });
+                      }
+                );
+          }else{
+          this.$message({
+            type: 'danger',
+            message: '请选取文件上传.'
+          }); 
+      }
+      },
         //切换tab时事件
         handleClick(tab, event) {
             console.log(tab, event);
