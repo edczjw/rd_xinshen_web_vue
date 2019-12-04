@@ -250,7 +250,7 @@
         </el-dialog>
 
         <!-- 电核情况 -->
-        <el-dialog title="电核情况" center :visible.sync="dialogdianheVisible">
+        <el-dialog title="电核情况" center  top='30vh'  :visible.sync="dialogdianheVisible">
             <el-collapse v-model="activeName" accordion>
             <el-collapse-item title="2019.10.31 18:42:50">
                 <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
@@ -268,13 +268,12 @@
         </el-dialog>
 
         <!-- 核查情况 -->
-        <el-dialog :visible.sync="dialoghechaVisible">
-            <div style="width:100%;text-align:center;font-size: 20px;">
+        <el-dialog center :visible.sync="dialoghechaVisible" top='30vh' style="width:50%;margin:0 auto;">
+            <span slot="title" class="dialog-title">
                 <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-icon-test" />
-                </svg>符合规范
-            </div>
-            <div style="width: 100%;height: 78px;font-size: 18px;color: #aaabb8;margin:20px auto;text-indent:2em">
+                <use xlink:href="#icon-icon-test" />
+            </svg>符合规范</span>
+            <div style="width: 400px;height: 108px;font-size: 18px;color: #aaabb8;margin:0 auto;text-indent:2em">
                 此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息
             </div>
         </el-dialog>

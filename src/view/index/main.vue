@@ -61,21 +61,25 @@
         </div>
 
          <!-- 导入表格弹框 -->
-        <el-dialog title="导入文件" append-to-body :visible.sync="dialogFormVisible">
+        <el-dialog append-to-body  top='30vh' width='40%'  :visible.sync="dialogFormVisible">
+            <span slot="title" class="dialog-title">
+            <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-biaoge3" />
+            </svg>上传EXCEL表格</span>
             <div style="width:100%;text-align:center;height:40px;line-height:40px;">
-                <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-biaoge3" />
-                </svg>上传EXCEL表格</div>
-            <div style="width:100%;text-align:center;height:40px;line-height:40px;">
-                <form id="form-article-add" method="post" enctype="multipart/form-data">  
-                <input type="file" name="file" @change="pickFile" 
-                accept=".xls, .xlsx, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                </form>
+            <el-upload
+            class="upload-demo"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+            multiple>
+            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div class="el-upload__tip" slot="tip">只能上传xsl/xls文件，且不超过500kb</div>
+            </el-upload>
             </div>
-            <div slot="footer" class="dialog-footer">
+            <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = !dialogFormVisible">取 消</el-button>
-                <el-button type="primary" @click="insertfile">导入<i class="el-icon-upload el-icon--right"></i></el-button>
-            </div>
+                <!-- <el-button type="primary" @click="insertfile">导入<i class="el-icon-upload el-icon--right"></i></el-button> -->
+            </span>
         </el-dialog>
    </div>
 </template>

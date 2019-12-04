@@ -93,6 +93,10 @@ td {
 .el-dialog {
   border-radius: 15px;
 }
+.el-dialog .el-upload-dragger {
+  text-align: center;
+  height: 40px;
+}
 .checking-box {
   width: 1300px;
   min-height: 1950px;

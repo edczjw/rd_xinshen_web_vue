@@ -52,8 +52,8 @@
                                 <div class="ck-select">
                                     <el-select placeholder="请选择">
                                     <el-option label="通过" value="shanghai"></el-option>
+                                    <el-option label="暂缓" value="beijing"></el-option>
                                     <el-option label="拒绝" value="beijing"></el-option>
-                                    <el-option label="待补件" value="beijing"></el-option>
                                     </el-select>
                                 </div>
                                 <div class="ck-button">
@@ -76,8 +76,8 @@
                                 <div class="ck-select">
                                     <el-select placeholder="请选择">
                                     <el-option label="通过" value="shanghai"></el-option>
+                                    <el-option label="暂缓" value="beijing"></el-option>
                                     <el-option label="拒绝" value="beijing"></el-option>
-                                    <el-option label="待补件" value="beijing"></el-option>
                                     </el-select>
                                 </div>
                                 <div class="ck-button">
@@ -145,10 +145,11 @@
                                                 <div class="nk-ok">
                                                     <div class="df">身份证正面</div>
                                                     <div class="df-s">
-                                                        <el-select placeholder="请选择" size="mini">
-                                                        <el-option label="通过" value="shanghai"></el-option>
-                                                        <el-option label="拒绝" value="beijing"></el-option>
-                                                        <el-option label="待补件" value="beijing"></el-option>
+                                                        <el-select placeholder="核查情况">
+                                                        <el-option label="正常" value="shanghai"></el-option>
+                                                        <el-option label="缺失" value="beijing"></el-option>
+                                                        <el-option label="电子屏" value="beijing"></el-option>
+                                                        <el-option label="其他" value="beijing"></el-option>
                                                         </el-select>
                                                     </div>
                                                 </div>
@@ -158,7 +159,7 @@
                                                 <div class="nk-ok">
                                                     <div class="df">身份证反面</div>
                                                     <div class="df-s">
-                                                        <el-select placeholder="请选择" size="mini">
+                                                        <el-select placeholder="请选择">
                                                         <el-option label="通过" value="shanghai"></el-option>
                                                         <el-option label="拒绝" value="beijing"></el-option>
                                                         <el-option label="待补件" value="beijing"></el-option>
@@ -171,10 +172,11 @@
                                                 <div class="nk-oks">
                                                     <div class="df">活体截图</div>
                                                     <div class="df-s">
-                                                        <el-select placeholder="请选择" size="mini">
-                                                        <el-option label="通过" value="shanghai"></el-option>
-                                                        <el-option label="拒绝" value="beijing"></el-option>
-                                                        <el-option label="待补件" value="beijing"></el-option>
+                                                        <el-select placeholder="核查情况">
+                                                        <el-option label="正常" value="shanghai"></el-option>
+                                                        <el-option label="缺失" value="beijing"></el-option>
+                                                        <el-option label="电子屏" value="beijing"></el-option>
+                                                        <el-option label="其他" value="beijing"></el-option>
                                                         </el-select>
                                                     </div>
                                                 </div>
@@ -184,10 +186,11 @@
                                                 <div class="nk-oks">
                                                     <div class="df">其他</div>
                                                     <div class="df-s">
-                                                        <el-select placeholder="请选择" size="mini">
-                                                        <el-option label="通过" value="shanghai"></el-option>
-                                                        <el-option label="拒绝" value="beijing"></el-option>
-                                                        <el-option label="待补件" value="beijing"></el-option>
+                                                        <el-select placeholder="核查情况">
+                                                        <el-option label="正常" value="shanghai"></el-option>
+                                                        <el-option label="缺失" value="beijing"></el-option>
+                                                        <el-option label="电子屏" value="beijing"></el-option>
+                                                        <el-option label="其他" value="beijing"></el-option>
                                                         </el-select>
                                                     </div>
                                                 </div>
@@ -302,7 +305,7 @@
         </div>
         
         <!-- 拨打情况弹框 -->
-        <el-dialog title="拨打情况" center :visible.sync="dialogbodaVisible">
+        <el-dialog title="拨打情况"  top='30vh'  center :visible.sync="dialogbodaVisible">
             <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="拨打情况">
                 <el-select v-model="form.region" placeholder="请选择活动区域">
@@ -320,14 +323,14 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit">确定</el-button>
-                <el-button>取消</el-button>
+                <el-button @click="dialogbodaVisible = false">取消</el-button>
             </el-form-item>
             </el-form>
         </el-dialog>
 
         
         <!-- 还款计划查看弹框 -->
-        <el-dialog title="还款计划" center :visible.sync="dialogTableVisible">
+        <el-dialog title="还款计划"  top='30vh'  center :visible.sync="dialogTableVisible">
             <el-table
             :data="tableData"
             border
