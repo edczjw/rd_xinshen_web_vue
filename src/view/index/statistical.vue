@@ -43,9 +43,10 @@
                     <el-row  :gutter="24">
                     <el-col :span='7'>
                             <el-select v-model="form.name" placeholder="请选择活动区域">
+                            <el-option label="全部" value="shanghai"></el-option>
                             <el-option label="通过" value="shanghai"></el-option>
                             <el-option label="拒绝" value="beijing"></el-option>
-                            <el-option label="待补件" value="beijing"></el-option>
+                            <el-option label="待处理" value="beijing"></el-option>
                             </el-select>
                     </el-col>
                     <el-col :span='3'>
@@ -70,14 +71,14 @@
                     element-loading-background="rgba(0, 0, 0, 0.8)"
                     style="width:100%; height:100%;"
                 >
-                    <el-table-column type="index" label="处理日" align="center" width="165" ></el-table-column>
+                    <el-table-column label="处理日" align="center"></el-table-column>
                     <el-table-column type="index" label="申请流水号" align="center" width="145"></el-table-column>
                     <el-table-column type="index" label="产品/项目" align="center" width="145"></el-table-column>
                     <el-table-column type="index" label="授信金额" align="center" width="145"></el-table-column>
                     <el-table-column type="index" label="贷款金额" align="center" width="145"></el-table-column>
                     <el-table-column type="index" label="审批状态" align="center" width="145"></el-table-column>
                     <el-table-column type="index" label="申请日" align="center" width="145"></el-table-column>
-                    <el-table-column type="index" label="流入日" align="center" width="165"  ></el-table-column>
+                    <el-table-column  label="流入日" align="center"  ></el-table-column>
                     </el-table>
 
                 <div class="bk-tab-foot">

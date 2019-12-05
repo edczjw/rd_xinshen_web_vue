@@ -66,7 +66,7 @@
             <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-biaoge3" />
             </svg>上传EXCEL表格</span>
-            <div style="width:100%;text-align:center;height:40px;line-height:40px;">
+            <div style="width:100%;text-align:center;height:100%;line-height:40px">
             <el-upload
             class="upload-demo"
             drag

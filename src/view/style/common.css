@@ -78,12 +78,12 @@
   width: 272px;
 }
 .el-table--border th {
-  background-color: #ebf7ff;
+  background-color: #ebf7ff !important;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
   letter-spacing: 0px;
-  color: #252e47;
+  color: #515a6e;
   height: 51px;
 }
 td {
@@ -91,7 +91,7 @@ td {
   height: 46px;
 }
 .el-dialog {
-  border-radius: 15px;
+  border-radius: 15px !important;
 }
 .el-dialog .el-upload-dragger {
   text-align: center;

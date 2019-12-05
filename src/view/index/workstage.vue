@@ -54,7 +54,7 @@
                             <el-select v-model="form.name" placeholder="请选择活动区域">
                             <el-option label="通过" value="shanghai"></el-option>
                             <el-option label="拒绝" value="beijing"></el-option>
-                            <el-option label="待补件" value="beijing"></el-option>
+                            <el-option label="待处理" value="beijing"></el-option>
                             </el-select>
                     </el-col>
                     <el-col :span='3'>

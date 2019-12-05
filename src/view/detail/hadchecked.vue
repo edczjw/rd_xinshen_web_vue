@@ -51,48 +51,46 @@
                                     <div class="ck-table" style="height:256px;">
                                         <el-row class="ck-row">
                                             <el-col :span="12">姓名：刘德华</el-col>
+                                            <el-col :span="6">注册手机号：132323322322</el-col>
+                                            <el-col :span="6">
+                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
                                             <el-col :span="12">身份证：441498898998989899</el-col>
-                                        </el-row>
-                                        <el-row class="ck-row">
-                                            <el-col :span="8">
-                                                <span>生肖：龙</span>   
-                                            </el-col>
-                                            <el-col :span="8"> 
-                                                <span>性别：男</span>   
-                                            </el-col>
-                                            <el-col :span="8">   
-                                                <span>年龄：22</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="ck-row">
                                             <el-col :span="6">申请手机号：132323332222</el-col>
                                             <el-col :span="6">
                                                 <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
-                                            <el-col :span="6">注册手机号：132323322322</el-col>
+                                        </el-row>
+                                        <el-row class="ck-row">
+                                            <el-col :span="4">
+                                                <span>生肖：龙</span>   
+                                            </el-col>
+                                            <el-col :span="4"> 
+                                                <span>性别：男</span>   
+                                            </el-col>
+                                            <el-col :span="4">   
+                                                <span>年龄：22</span>
+                                            </el-col>
+                                            <el-col :span="6">银行预留手机号：132323223322</el-col>
                                             <el-col :span="6">
                                                 <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
                                         </el-row>
 
                                         <el-row class="ck-row">
-                                            <el-col :span="6">银行预留手机号：132323223322</el-col>
-                                            <el-col :span="6">
-                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
-                                            </el-col>
+                                            <el-col :span="12">工作单位：广州民盛互联网小额贷款有限公司</el-col>
                                             <el-col :span="6">其他手机号：132323223322</el-col>
                                             <el-col :span="6">
                                                 <div class="ckrow-button" @click="dianhe">电核情况</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col>工作单位：广州民盛互联网小额贷款有限公司</el-col>
+                                            <el-col>工作电话：020-989987899</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
                                             <el-col>单位地址：广州越秀区长堤大马路224-246号</el-col>
-                                        </el-row>
-                                        <el-row class="ck-row">
-                                            <el-col>工作单位：广州越秀区长堤大马路224-246号</el-col>
                                         </el-row>
                                     </div>
                                 </div>
@@ -118,14 +116,14 @@
                                                 </div>
                                             </el-col>
                                             <el-col :span="6" class="re-img go-center">
-                                                <img src="../../assets/images/human-img.png" alt="">
+                                                <img src="../../assets/images/timg.gif" alt="">
                                                 <div class="nk-oks">
                                                     <div class="df">活体截图</div>
                                                     <div class="ckrow-buttons" @click="hecha">核查情况</div>
                                                 </div>
                                             </el-col>
                                             <el-col :span="6" class="re-img go-center">
-                                                <img src="../../assets/images/human-img.png" alt="">
+                                                <img src="../../assets/images/timg.gif" alt="">
                                                 <div class="nk-oks">
                                                     <div class="df">其他</div>
                                                     <div class="ckrow-buttons" @click="hecha">核查情况</div>
@@ -240,12 +238,12 @@
             element-loading-background="rgba(0, 0, 0, 0.8)"
             style="width:100%; height:100%;"
         >
-            <el-table-column type="index" label="期数" align="center"></el-table-column>
-            <el-table-column type="index" label="还款日" align="center" width="145"></el-table-column>
-            <el-table-column type="index" label="应还款金额" align="center" width="145"></el-table-column>
-            <el-table-column type="index" label="应还本金" align="center" width="145"></el-table-column>
-            <el-table-column type="index" label="应还利息" align="center" width="145"></el-table-column>
-            <el-table-column type="index" label="应还其他费用" align="center"></el-table-column>
+            <el-table-column label="期数" align="center"></el-table-column>
+            <el-table-column label="还款日" align="center" width="145"></el-table-column>
+            <el-table-column label="应还款金额" align="center" width="145"></el-table-column>
+            <el-table-column label="应还本金" align="center" width="145"></el-table-column>
+            <el-table-column label="应还利息" align="center" width="145"></el-table-column>
+            <el-table-column label="应还其他费用" align="center"></el-table-column>
             </el-table>
         </el-dialog>
 
@@ -271,7 +269,7 @@
         <el-dialog center :visible.sync="dialoghechaVisible" top='30vh' style="width:50%;margin:0 auto;">
             <span slot="title" class="dialog-title">
                 <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-icon-test" />
+                <use xlink:href="#icon-icon-test1" />
             </svg>符合规范</span>
             <div style="width: 400px;height: 108px;font-size: 18px;color: #aaabb8;margin:0 auto;text-indent:2em">
                 此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息
@@ -432,7 +430,7 @@ export default {
                 margin-bottom: 30px;
             }
             .el-tabs__item {
-                padding: 0 0 0 8px;
+                // padding: 0 0 0 8px;
                 height: 48px;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
