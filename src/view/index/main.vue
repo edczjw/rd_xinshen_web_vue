@@ -26,7 +26,7 @@
                 <!-- 中部 -->
                 <div class="main-middle">
                     <div class="main-import">
-                        <div class="import" @click="dialogFormVisible = !dialogFormVisible">
+                        <div v-if="showinput" class="import" @click="dialogFormVisible = !dialogFormVisible">
                             <i class="el-icon-upload2"></i>导入
                         </div>
                     </div>
@@ -67,11 +67,15 @@
             <use xlink:href="#icon-biaoge3" />
             </svg>上传EXCEL表格</span>
             <div style="width:100%;text-align:center;height:100%;line-height:40px">
-            <el-upload
+            <el-upload name="excel" 
+            accept=".xlsx, .xls, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
             class="upload-demo"
+            :before-upload='beforeupload'
+            :file-list="filelist"
             drag
-            action="https://jsonplaceholder.typicode.com/posts/"
-            multiple>
+            :http-request="upload"
+            action='#'
+            >
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
             <div class="el-upload__tip" slot="tip">只能上传xsl/xls文件，且不超过500kb</div>
             </el-upload>
@@ -91,10 +95,12 @@ import statistical from './statistical'
 export default {
     data(){
         return{
+            filelist:[],//文件列表
             showworkstage:true,//显示工作台
             dialogFormVisible: false,
             showinputdialog:false,
             activeName: '0',
+            showinput:false,//显示导入按钮
         }
     },
     components:{
@@ -103,96 +109,58 @@ export default {
         'statistical':statistical
     },
     methods: {
-        //生成
-    profile() {
-      if(this.searchform.date !=''){
-      let data = {
-        date:this.searchform.date
-      };
-      const url = this.$store.state.domain + "/file/loanFile/create";
-      this.$http.post(url, data, {
-          emulateJSON: true
-      })
-        .then(response => {
-          if(response.code == 0){
-            this.$message({
-              message: response.data.msg,
-              type: "success"
-            });
-          }else{
-            this.$message({
-              message: response.data.msg,
-              type: "error"
-            });
-          }
-        })
-        .catch(err => {
-          this.$message({
-              message: '您的账号无此菜单查看权限，谢谢合作',
-              type: "error"
-            });
-        });
-        
-      }else{
-        this.$message({
-              message: '请选择日期',
-              type: "error"
-            });
-      }
+        //上传
+        upload(e){
+            var that = this;
+            const fileObj = e.file;	
+            var reader = new FileReader();
+            reader.readAsDataURL(fileObj);
+            reader.onload = function(e){
+                that.base64 = e.target.result;
+            };
 
-    },
-    //下载
-    downloadfile() {
-      if(this.searchform.date != ''){
-      let data = {
-        date:this.searchform.date
-      };
-      const url = this.$store.state.domain + "/file/loanFile/download";
-      this.$http
-        .post(url, data, {
-          responseType: "blob",
-          emulateJSON: true
-        })
-        .then(res => {
-          if(res.data.code){
-                 if(res.data.code == 1){
-                   this.$message({
-                          message: res.data.msg,
-                          type: "error"
-                        });
-                    }
-              }else{
-                let blob = new Blob([res.body], {
-                    type: "application/octet-stream"
-                  });
-                  if (window.navigator.msSaveOrOpenBlob) {
-                    navigator.msSaveBlob(blob);
-                  } else {
-                    let elink = document.createElement("a");
-                    elink.download = this.searchform.date + 'loanFile' + ".xls";
-                    elink.style.display = "none";
-                    elink.href = URL.createObjectURL(blob);
-                    document.body.appendChild(elink);
-                    elink.click();
-                    document.body.removeChild(elink);
-                  }
-              }
-        })
-        .catch(err => {
-          this.$message({
-              message: '您的账号无此菜单查看权限，谢谢合作',
-              type: "error"
-            });
-        });
+            let msgForm = new FormData();	// 创建FormData
+            msgForm.append('file', fileObj);	// 向FormData中添加文件对象
+            msgForm.get("file");	// 此方法可以查看FormData中插入的对象
+            console.log(msgForm)
+            this.$axios({
+                method: "post",
+                url: "/workBench/importCase",
+                data: msgForm,
+                headers: { 'Content-Type': 'multipart/form-data' }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.$message({
+                    message: res.msg,
+                    type: "success"
+                    });
+                } else {
+                    this.$message({
+                    message: res.msg,
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
+        },
+        //文件上传之前
+        beforeupload(e){
+            var fname = e.name.substr(e.name.lastIndexOf("."))
+            //校验格式
+            if(fname != '.xls' && fname != '.xlsx' && fname != '.csv'){
+                this.$message({
+                message: '请上传EXCEL格式的文件',
+                type: "error"
+                });
+                return false
+            }else{
+                return true
+            }
+        },
         
-      }else{
-        this.$message({
-              message: '请选择日期',
-              type: "error"
-            });
-      }
-
-    },
     //上传按钮
       pickFile(e){
           var files = e.target.files || e.dataTransfer.files;
@@ -261,7 +229,7 @@ export default {
       },
         //切换tab时事件
         handleClick(tab, event) {
-            console.log(tab, event);
+            console.log(tab.index)
         },
     }
 }

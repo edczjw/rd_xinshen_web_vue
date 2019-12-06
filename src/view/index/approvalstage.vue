@@ -2,23 +2,32 @@
 <!-- 审批台 -->
     <div>
         <div class="bk animated fadeInDown">
-            <el-form ref="form" :model="form" label-width="2%">
+            <div style="padding-left:20px">
+            <el-form ref="form"  :rules="rules" :model="form" label-width="2%">
                 <div class="form-tit">
                     <el-row  :gutter="24">
                         <el-col :span='8'>案件流入时间</el-col>
                     </el-row>
                 </div>
-                <el-form-item>
                     <el-row  :gutter="24">
                     <el-col :span="6">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 80%;" ></el-date-picker>
+                <el-form-item>
+                    <el-date-picker type="date"
+                    value-format="yyyy-MM-dd" placeholder="选择日期" 
+                    v-model.trim="form.startTime" style="width: 80%;" ></el-date-picker>
+                </el-form-item>
                     </el-col>
                     <el-col class="line" :span='1'>-</el-col>
                     <el-col :span="6">
-                    <el-date-picker type="date" placeholder="选择时间" v-model="form.date2" style="width: 80%;"></el-date-picker>
+                        
+                <el-form-item>
+                    <el-date-picker type="date" placeholder="选择时间" 
+                    value-format="yyyy-MM-dd"
+                    v-model.trim="form.endTime" 
+                    style="width: 80%;"></el-date-picker>
+                </el-form-item>
                     </el-col>
                     </el-row>
-                </el-form-item>
 
                 <div class="form-tit">
                     <el-row  :gutter="24">
@@ -28,19 +37,29 @@
                     </el-row>
                 </div>
 
-                <el-form-item>
                     <el-row  :gutter="24">
                     <el-col :span='6'>
-                            <el-input v-model="form.name"></el-input>
+                <el-form-item>
+                            <el-input v-model.trim="form.idCard" 
+                            clearable 
+                            auto-complete="true"></el-input>
+                </el-form-item>
                     </el-col>
                     <el-col :span='6'>
-                            <el-input v-model="form.name"></el-input>
+                <el-form-item>
+                            <el-input v-model.trim="form.mobile"
+                            clearable 
+                            auto-complete="true"></el-input>
+                </el-form-item>
                     </el-col>
                     <el-col :span='6'>
-                            <el-input v-model="form.name"></el-input>
+                <el-form-item>
+                            <el-input v-model.trim="form.name"
+                            clearable 
+                            auto-complete="true"></el-input>
+                </el-form-item>
                     </el-col>
                     </el-row>
-                </el-form-item>
 
                  <div class="form-tit">
                     <el-row  :gutter="24">
@@ -48,21 +67,24 @@
                     </el-row>
                 </div>
 
-                <el-form-item>
                     <el-row  :gutter="24">
                     <el-col :span='6'>
-                            <el-select v-model="form.name" placeholder="请选择活动区域">
-                            <el-option label="通过" value="shanghai"></el-option>
-                            <el-option label="拒绝" value="beijing"></el-option>
-                            <el-option label="待处理" value="beijing"></el-option>
+                <el-form-item>
+                            <el-select clearable 
+                            v-model.trim="form.checked" placeholder="请选择审批状态">
+                            <el-option v-for="item in options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"></el-option>
                             </el-select>
+                </el-form-item>
                     </el-col>
                     <el-col :span='6'>
-                        <div class="f-search">查询</div>
+                        <div class="f-search" @click="search('form')">查询</div>
                     </el-col>
                     </el-row>
-                </el-form-item>
             </el-form>
+            </div>
 
             <!-- 表格 -->
             <div class="bk-table">
@@ -78,17 +100,17 @@
                     highlight-current-row
                 >
                     <el-table-column type="index" label="序号" align="center" width="55"></el-table-column>
-                    <el-table-column type="index" label="申请流水" align="center" width="145"></el-table-column>
-                    <el-table-column type="index" label="三方用户号" align="center" width="105"></el-table-column>
-                    <el-table-column type="index" label="姓名" align="center" width="85"></el-table-column>
-                    <el-table-column type="index" label="身份证号码" align="center" width="155"></el-table-column>
-                    <el-table-column type="index" label="手机号码" align="center" width="105"></el-table-column>
-                    <el-table-column type="index" label="授信金额" align="center" width="105"></el-table-column>
-                    <el-table-column type="index" label="贷款金额" align="center" width="105"></el-table-column>
-                    <el-table-column type="index" label="期数" align="center" width="55"></el-table-column>
-                    <el-table-column type="index" label="处理人" align="center" width="88"></el-table-column>
-                    <el-table-column type="index" label="申请时间" align="center" width="120"></el-table-column>
-                    <el-table-column type="index" label="流入时间" align="center" width="120"></el-table-column>
+                    <el-table-column prop="applyNo" label="申请流水" align="center" width="145"></el-table-column>
+                    <el-table-column prop="productCode" label="三方用户号" align="center" width="105"></el-table-column>
+                    <el-table-column prop="name"  label="姓名" align="center" width="85"></el-table-column>
+                    <el-table-column prop="idCard"  label="身份证号码" align="center" width="155"></el-table-column>
+                    <el-table-column prop="mobile" label="手机号码" align="center" width="105"></el-table-column>
+                    <el-table-column prop="creditAmount" label="授信金额" align="center" width="105"></el-table-column>
+                    <el-table-column prop="loanAmount" label="贷款金额" align="center" width="105"></el-table-column>
+                    <el-table-column prop="term" label="期数" align="center" width="55"></el-table-column>
+                    <el-table-column prop="operator" label="处理人" align="center" width="88"></el-table-column>
+                    <el-table-column prop="applyTime" label="申请时间" align="center" width="120"></el-table-column>
+                    <el-table-column prop="recordTime" label="流入时间" align="center" width="120"></el-table-column>
                 </el-table>
 
                 <div class="bk-tab-foot">
@@ -96,7 +118,7 @@
                     style="text-align:center"
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="this.form.pageIndex"
+                    :current-page="this.form.currentPage"
                     :page-sizes="[10,15,20]"
                     :page-size="this.form.pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
@@ -108,43 +130,123 @@
     </div>
 </template>
 <script>
+import rules from "../../rule/rule"
 export default {
     data(){
         return{
             count:0,
-            tableData: [{
-          index: '王小虎',
-        },{
-          index: '王小虎',
-        },{
-          index: '王小虎',
-        },{
-          index: '王小虎',
-        },{
-          index: '王小虎',
-        },],
+            //审批状态
+            options: [{
+            value: 1,
+            label: "通过"
+            },
+            {
+            value: 3,
+            label: "拒绝"
+            },
+            {
+            value: 2,
+            label: "暂缓"
+            },
+            {
+            value: 0,
+            label: "待处理"
+            }],
+            tableData: [],
             form:{
-                date1:'',
-                date2:'',
-                name:'',
-                pageIndex:0,
-                pageSize:50,
+                checked:null,//审批状态
+                idCard:'',//身份证号
+                mobile:'',//手机号
+                name:'',//姓名
+                operator:'',//审核人员
+                currentPage:0,//当前页码
+                pageSize:50,//每页记录数
+                startTime:null,//初始时间
+                endTime:null,//结束时间
+            },
+
+            // 校验规则
+            rules: {
+                //身份证
+                ID: [{required: false, validator: rules.FormValidate.Form().ID, trigger: 'blur'}],
+                name: [
+                    { required: true, message: '请输入活动名称', trigger: 'blur' },
+                    { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                ],
+                companyName: [
+                {required: true, message: '请输入公司名称', trigger: 'blur'},
+                // 可以设置双重验证标准
+                {max: 30, message: '公司名称不可超过30个字符11'}
+                ],
+                number: [
+                {required: false, validator: rules.FormValidate.Form().validateNumber, trigger: 'change'},
+                {max: 10, message: '员工数量不可超过10亿'}
+                ],
+                code: [{required: true, validator: rules.FormValidate.Form().validateCode, rigger: 'blur'}],
+                password: [{required: true, validator: rules.FormValidate.Form().validatePsdReg, rigger: 'blur'}],
+            
+                contacts: [
+                {required: true, validator: rules.FormValidate.Form().validateContacts, rigger: 'blue'},
+                {max: 10, message: '联系人不可超过10个字符'}
+                ],
+                phone: [{required: true, validator: rules.FormValidate.Form().validatePhone, trigger: 'blur'}],
+                email: [{required: false, validator: rules.FormValidate.Form().validateEmail, trigger: 'change'}],
+                imgCode: [{required: true, message: '请输入验证码', rigger: 'blue'}]
             }
         }
     },
+    mounted() {
+        //初始加载
+        this.load(this.form)
+    },
     methods: {
+        //查询
+        search(formName){
+            this.$refs[formName].validate((valid) => {
+            if (valid) {
+                this.load(this.form);
+                } else {
+                console.log('error submit!!');
+                return false;
+            }
+            });
+        },
+        //加载
+        load(data){
+            this.$axios({
+            method: "post",
+            url: "/workBench/listCase",
+            data: data
+        }).then(
+            response => {
+            var res = response.data;
+            if (res.code == '0000') {
+                this.tableData = res.data.pageList;
+                this.count = res.data.total;
+                this.form.currentPage = res.data.currentPage;
+                this.form.pageSize = res.data.pageSize;
+            } else {
+                this.$message({
+                message: res.msg,
+                type: "error"
+                });
+            }
+            },
+            error => {}
+        );
+        },
         handleSizeChange(psize) {
         // 改变每页显示的条数
         this.form.pageSize = psize;
         // 注意：在改变每页显示的条数时，要将页码显示到第一页
-        this.form.pageIndex = 1;
-        // this.load(this.form);
+        this.form.currentPage = 1;
+        this.load(this.form);
         },
 
         // 初始页currentPage
         handleCurrentChange(pindex) {
-        this.form.pageIndex = pindex;
-        // this.load(this.form);
+        this.form.currentPage = pindex;
+        this.load(this.form);
         },
     },
 }
