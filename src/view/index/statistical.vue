@@ -91,7 +91,14 @@
                     style="width:100%; height:100%;"
                 >
                     <el-table-column prop="utime" label="处理日" align="center"></el-table-column>
-                    <el-table-column prop="applyNo" label="申请流水号" align="center" width="145"></el-table-column>
+                    <el-table-column prop="applyNo" label="申请流水号" align="center" width="145">
+                        <template slot-scope="scope">
+                            <el-button  type="text" size="small" 
+                            @click="godetail(scope.row.applyNo,scope.row.checked,scope.row.productCode,scope.row.sysCode,)">
+                                {{scope.row.applyNo}}
+                            </el-button>
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="productCode" label="产品/项目" align="center" width="145"></el-table-column>
                     <el-table-column prop="creditAmount" label="授信金额" align="center" width="145"></el-table-column>
                     <el-table-column prop="loanAmount" label="贷款金额" align="center" width="145"></el-table-column>
@@ -113,6 +120,7 @@
                     </el-table-column>
                     <el-table-column prop="applyTime" label="申请日" align="center" width="145"></el-table-column>
                     <el-table-column prop="recordTime" label="流入日" align="center"  ></el-table-column>
+                    <el-table-column v-if="false" prop="sysCode" label="流入日" align="center"  ></el-table-column>
                     </el-table>
 
                 <div class="bk-tab-foot">
@@ -209,6 +217,32 @@ export default {
             },
             error => {}
         );
+        },
+        
+        //跳转详情
+        godetail(applyNo,checked,productCode,sysCode){
+            //待处理
+            if(checked == 0){
+                //路由带参数
+                this.$router.push({
+                path:'/checking',
+                query:{
+                    applyNo:applyNo,
+                    productCode:productCode,
+                    sysCode:sysCode
+                    }
+                })
+            }
+            //已处理
+            else if(checked == 1 || checked == 2 || checked == 3){
+                //路由带参数
+                this.$router.push({
+                path:'/hadchecked',
+                query:{
+                    applyNo:applyNo
+                    }
+                })
+            }
         },
         //导出
         output(){

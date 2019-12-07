@@ -32,21 +32,21 @@
                     </div>
                     <div class="main-tab">
                         <el-tabs v-model="activeName" @tab-click="handleClick">
-                            <el-tab-pane v-if="showworkstage"><span slot="label">
+                            <el-tab-pane  label="工作台" v-if="showworkstage"><span slot="label">
                                 <svg class="icon" aria-hidden="true">
                                 <use xlink:href="#icon-gongzuotai4" />
                             </svg>工作台</span>
                             <!-- 引入工作台子组件 -->
                             <workstage></workstage>
                             </el-tab-pane>
-                            <el-tab-pane><span slot="label">
+                            <el-tab-pane label="审批台"><span slot="label">
                                 <svg class="icon" aria-hidden="true">
                                 <use xlink:href="#icon-examine" />
                             </svg>审批台</span>
                             <!-- 引入审批台子组件 -->
-                            <approvalstage></approvalstage>
+                            <approvalstage v-if="sonRefresh"></approvalstage>
                             </el-tab-pane>
-                            <el-tab-pane><span slot="label">
+                            <el-tab-pane  label="统计"><span slot="label">
                                 <svg class="icon" aria-hidden="true">
                                 <use xlink:href="#icon-tongji3" />
                             </svg>统计</span>
@@ -95,12 +95,13 @@ import statistical from './statistical'
 export default {
     data(){
         return{
+            sonRefresh:true,//显示审批台
             filelist:[],//文件列表
             showworkstage:true,//显示工作台
             dialogFormVisible: false,
             showinputdialog:false,
             activeName: '0',
-            showinput:false,//显示导入按钮
+            showinput:true,//显示导入按钮
         }
     },
     components:{
@@ -122,7 +123,6 @@ export default {
             let msgForm = new FormData();	// 创建FormData
             msgForm.append('file', fileObj);	// 向FormData中添加文件对象
             msgForm.get("file");	// 此方法可以查看FormData中插入的对象
-            console.log(msgForm)
             this.$axios({
                 method: "post",
                 url: "/workBench/importCase",
@@ -132,16 +132,28 @@ export default {
                 response => {
                 var res = response.data;
                 if (res.code == '0000') {
-                    this.$message({
-                    message: res.msg,
-                    type: "success"
-                    });
-                } else {
-                    this.$message({
-                    message: res.msg,
-                    type: "error"
-                    });
-                }
+                    this.$confirm('文件导入成功', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        showCancelButton:false,
+                        type: 'success'
+                        }).then(() => {
+                            //确定
+                        }).catch(() => {
+                            //取消    
+                        });
+                    }else{
+                    this.$confirm('文件导入失败，请重新导入', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        showCancelButton:false,
+                        type: 'warning'
+                        }).then(() => {
+                            //确定
+                        }).catch(() => {
+                            //取消    
+                        });
+                    }
                 },
                 error => {}
             );
@@ -229,7 +241,18 @@ export default {
       },
         //切换tab时事件
         handleClick(tab, event) {
-            console.log(tab.index)
+            if(tab.label == '统计'){
+                this.showinput = false
+            }else if(tab.label == '审批台'){
+                //切换到审批台的时候强制刷新审批台列表
+                this.sonRefresh = false;
+                this.$nextTick(() => {
+                    this.sonRefresh = true;
+                });
+            }
+            else{
+                this.showinput = true
+            }
         },
     }
 }

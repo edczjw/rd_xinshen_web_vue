@@ -99,6 +99,7 @@
             <div class="bk-table">
                 <el-table
                     :data="tableData"
+                    ref="multipleTable"
                     border
                     size="mini"
                     stripe
@@ -112,12 +113,35 @@
                     <el-table-column type="selection" label="选择" align="center" width="55"></el-table-column>
                     <el-table-column prop="applyNo" label="申请流水" align="center" width="125"></el-table-column>
                     <el-table-column prop="productCode" label="产品/项目" align="center" width="105"></el-table-column>
-                    <el-table-column prop="name" label="姓名" align="center" width="85"></el-table-column>
+                    <el-table-column prop="name" label="姓名" align="center" width="85">
+                        <template slot-scope="scope">
+                            <el-button  type="text" size="small" 
+                            @click="godetail(scope.row.applyNo,scope.row.checked,scope.row.productCode,scope.row.sysCode)">
+                                {{scope.row.name}}
+                            </el-button>
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="idCard" label="身份证号码" align="center" width="155"></el-table-column>
                     <el-table-column prop="mobile" label="手机号码" align="center" width="105"></el-table-column>
                     <el-table-column prop="creditAmount" label="授信金额" align="center" width="105"></el-table-column>
                     <el-table-column prop="loanAmount" label="贷款金额" align="center" width="105"></el-table-column>
                     <el-table-column prop="term" label="期数" align="center" width="55"></el-table-column>
+                    <el-table-column v-if="false" prop="checked" label="审批状态" align="center" width="145">
+                        <template slot-scope="scope">
+                            <span  v-if="scope.row.checked == 0">
+                                待处理
+                            </span>
+                            <span v-else-if="scope.row.checked == 1">
+                                通过
+                            </span>
+                            <span v-else-if="scope.row.checked == 2">
+                                暂缓
+                            </span>
+                            <span v-else-if="scope.row.checked == 3">
+                                拒绝
+                            </span>
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="operator" label="处理人" align="center" width="88">
                         <template slot-scope="scope">
                             <span  v-if="scope.row.operator =='待处理'">
@@ -128,6 +152,7 @@
                     </el-table-column>
                     <el-table-column prop="applyTime" label="申请时间" align="center"></el-table-column>
                     <el-table-column prop="recordTime" label="流入时间" align="center" ></el-table-column>
+                    <el-table-column v-if="false" prop="sysCode" label="系统编码" align="center" ></el-table-column>
                 </el-table>
 
                 <div class="bk-tab-foot">
@@ -149,17 +174,19 @@
         <el-dialog title="派单分配" append-to-body :visible.sync="dialogFormVisible">
         <el-form :model="form">
             <div style="width:100%;text-align:center;padding:20px 0;font-size:18px;">
-            已选择任务件：{{hselected}}，其中中移和包：2，海拍客：1</div>
+            已选择任务件：{{hselected}}</div>
             <el-row type="flex" class="row-bg" justify="space-around">
             <el-col :span="8"><div class="grid-content bg-purple"> </div></el-col>
             <el-col :span="12">
                 <div class="grid-content bg-purple">
                     <el-form-item label="分配至" :label-width="formLabelWidth">
-                        <el-select v-model="form.name" placeholder="请选择分配人员">
-                            <el-option label="张学友" value="shanghai"></el-option>
-                            <el-option label="刘德华" value="beijing"></el-option>
-                            <el-option label="郭富城" value="beijing"></el-option>
-                        </el-select>
+                        <el-select clearable 
+                            v-model.trim="operator" placeholder="请选择操作人员">
+                            <el-option v-for="item in options2"
+                            :key="item.index"
+                            :label="item.uname"
+                            :value="item.uname"></el-option>
+                            </el-select>
                     </el-form-item>
                 </div>
             </el-col>
@@ -184,6 +211,11 @@ export default {
             hselected:0,    //已选任务件
             count:0,
             tableData: [],  //列表
+            //操作员列表
+            options2: [],
+
+            operator:'',//操作员
+
             //审批状态
             options: [{
             value: 1,
@@ -247,6 +279,9 @@ export default {
     mounted() {
         //初始加载
         this.load(this.form)
+
+        //获取操作人员列表
+        this.getoperatorlist();
     },
     methods: {
         //查询
@@ -264,31 +299,98 @@ export default {
         //加载
         load(data){
             this.$axios({
-            method: "post",
-            url: "/workBench/listCase",
-            data: data
-        }).then(
-            response => {
-            var res = response.data;
-            if (res.code == '0000') {
-                this.tableData = res.data.pageList;
-                this.count = res.data.total;
-                this.form.currentPage = res.data.currentPage;
-                this.form.pageSize = res.data.pageSize;
-            } else {
-                this.$message({
-                message: res.msg,
-                type: "error"
-                });
-            }
-            },
-            error => {}
-        );
+                method: "post",
+                url: "/workBench/listCase",
+                data: data
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.tableData = res.data.pageList;
+                    this.count = res.data.total;
+                    this.form.currentPage = res.data.currentPage;
+                    this.form.pageSize = res.data.pageSize;
+                } else {
+                    this.$message({
+                    message: res.msg,
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
         },
-        
+
+        //跳转详情
+        godetail(applyNo,checked,productCode,sysCode){
+            //待处理
+            if(checked == 0){
+                //路由带参数
+                this.$router.push({
+                path:'/checking',
+                query:{
+                    applyNo:applyNo,
+                    productCode:productCode,
+                    sysCode:sysCode
+                    }
+                })
+            }
+            //已处理
+            else if(checked == 1 || checked == 2 || checked == 3){
+                //路由带参数
+                this.$router.push({
+                path:'/hadchecked',
+                query:{
+                    applyNo:applyNo
+                    }
+                })
+            }
+        },
         //确定分配派单
         takesure(){
-            this.dialogFormVisible = false
+            var applyNos = this.multipleSelection
+            var uname = this.operator
+            let data = {
+                applyNos:applyNos,
+                uname:uname
+            }
+            if(uname == '' || uname == null){
+                this.$message({
+                    message: '请选择操作人员，谢谢合作。',
+                    type: "error"
+                    });
+            }else{
+            this.$axios({
+                method: "post",
+                url: "/workBench/assignCase",
+                data: data
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    var successNum = res.data.successNum
+                    var totalNum = res.data.totalNum
+                    this.$confirm('派单分配总数：'+ totalNum + '，其中成功分配数：' + successNum, '提示', {
+                    confirmButtonText: '确定',
+                    showCancelButton:false,
+                    type: 'success'
+                    }).then(() => {
+                        //确定
+                        this.dialogFormVisible = false
+                        //刷新列表
+                        this.load(this.form)
+                    }).catch(() => {
+                        //取消
+                    });
+                } else {
+                    this.$message({
+                    message: '案件分配异常，请联系技术人员。',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );}
         },
         //点击派单
         paiDan(){
@@ -302,11 +404,60 @@ export default {
                 this.dialogFormVisible=true;
             }
         },
+
+        //获取操作人员列表
+        getoperatorlist(){
+            this.$axios({
+                method: "post",
+                url: "/workBench/listOperator"
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.options2 = res.data
+                } else {
+                    this.$message({
+                    message: '获取操作员列表报错',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
+        },
+
         //表格选择
         handleSelectionChange(val) {
-            this.multipleSelection = val;
-            this.hselected = this.multipleSelection.length;
-            console.log(this.multipleSelection.length)
+            var that = this
+            //循环
+            val.forEach((data)=>{
+                if(data.operator != ''){
+                    this.$confirm('此案件处理人已分配，请勿重复分配。', '提示', {
+                    confirmButtonText: '确定',
+                    showCancelButton:false,
+                    type: 'warning'
+                    }).then(() => {
+                        //确定
+                        // 取消表格的勾选
+                        that.tableData.map(item => {
+                            if (item.applyNo === data.applyNo) {
+                                this.$refs.multipleTable.toggleRowSelection(item, false)
+                            }
+                        })
+                    }).catch(() => {
+                        //取消
+                    });
+                }else{
+                    //清空数组
+                    this.multipleSelection = []
+                    //循环
+                    val.forEach((data)=>{
+                        this.multipleSelection.push((data.applyNo))
+                    })
+                    this.hselected = this.multipleSelection.length;
+                }
+            })
+
         },
         handleSizeChange(psize) {
         // 改变每页显示的条数
