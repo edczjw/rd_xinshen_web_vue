@@ -36,61 +36,66 @@
                         </div>
                             <div style="margin-bottom:100px;">
                             <div class="checking-box">
-                                <div class="ck-tit">审批结论：通过</div>
+                                <div class="ck-tit">审批结论：{{shenhedetail.checkDesc}}</div>
                                 <div class="ck-pag">
                                     <div class="ck-table" style="text-align:justify;line-height:25px;">
-                                        <p style="text-indent:2em">结论通过法律、国务院行政法规对行政审批项目的实施范围作了明确规定的，审批部门要严格按照其规定实施，不得扩大实施范围。其他各类规范性文件对法律、国务院行政法规规定的实施范围作了扩大性规定的，应按无效处理；作了缩小性规定的，才能依照其规定执行。法律、国务院行政法规对行政审批项目的实施范围作了明确规定的，审批部门要严格按照其规定实施，不得扩大实施范围。其他各类规范性文件对法律、国务院行政法规规定的实施范围作了扩大性规定的，应按无效处理；作了缩小性规定的，才能依照其规定执行。国务院行政法规对行政审批项目的实施范围作了明确规定的，审批部门要严格按照其规定实施。</p>
+                                        <p style="text-indent:2em">{{shenhedetail.checkRemark}}</p>
                                     </div>
                                 </div>
 
+                                
                                 <div class="ck-se">
                                 <div class="ck-tit">申请人信息</div>
-                                
                                 </div>
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:256px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="12">姓名：刘德华</el-col>
-                                            <el-col :span="6">注册手机号：132323322322</el-col>
+                                            <el-col :span="12">姓名：{{data.name}}</el-col>
+                                            
+                                            <el-col :span="6">注册手机号：{{data.registMobile}}</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
+                                                <div class="ckrow-button" @click="dianhe(data.registMobile)">电核情况</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="12">身份证：441498898998989899</el-col>
-                                            <el-col :span="6">申请手机号：132323332222</el-col>
+                                            <el-col :span="12">身份证：{{data.idCard}}</el-col>
+                                            <el-col :span="6">申请手机号：{{data.applyMobile}}</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
+                                                <div class="ckrow-button" @click="dianhe(data.applyMobile)">电核情况</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
+                                            
                                             <el-col :span="4">
-                                                <span>生肖：龙</span>   
+                                                <span>生肖：{{data.zodiac}}</span>   
                                             </el-col>
                                             <el-col :span="4"> 
-                                                <span>性别：男</span>   
+                                                <span>性别：
+                                                    <span v-if="data.sex == 1">男</span>
+                                                    <span v-else>女</span>
+                                                </span>   
                                             </el-col>
                                             <el-col :span="4">   
-                                                <span>年龄：22</span>
+                                                <span>年龄：{{data.age}}</span>
                                             </el-col>
-                                            <el-col :span="6">银行预留手机号：132323223322</el-col>
+                                            <el-col :span="6">银行预留手机号：{{data.bankMobile}}</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
+                                                <div class="ckrow-button" @click="dianhe(data.bankMobile)">电核情况</div>
                                             </el-col>
                                         </el-row>
 
                                         <el-row class="ck-row">
-                                            <el-col :span="12">工作单位：广州民盛互联网小额贷款有限公司</el-col>
-                                            <el-col :span="6">其他手机号：132323223322</el-col>
+                                            <el-col :span="12">工作单位：{{data.company}}</el-col>
+                                            <el-col :span="6">其他手机号：{{data.othMobile}}</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
+                                                <div class="ckrow-button" @click="dianhe(data.othMobile)">电核情况</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col>工作电话：020-989987899</el-col>
+                                            <el-col :span="12">单位电话：{{data.companyMobile}}</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col>单位地址：广州越秀区长堤大马路224-246号</el-col>
+                                            <el-col>单位地址：{{data.companyAddress}}</el-col>
                                         </el-row>
                                     </div>
                                 </div>
@@ -102,33 +107,40 @@
                                     <div class="ck-table" style="height:100%;">
                                         <el-row class="ck-row">
                                             <el-col :span="6" class="go-center">
-                                                <img src="../../assets/images/idup.png" alt="">
+                                                <!-- <img src="../../assets/images/idup.png" alt=""> -->
+                                                <div class="go-img">
+                                                <img :src="this.imgfront" alt="">
+                                                </div>
                                                 <div class="nk-ok">
                                                     <div class="df">身份证正面</div>
-                                                    <div class="ckrow-buttons" @click="hecha">核查情况</div>
+                                                    <div class="ckrow-buttons" @click="hecha(1)">核查情况</div>
                                                 </div>
                                             </el-col>
                                             <el-col :span="6"  class="go-center">
-                                                <img src="../../assets/images/iddown.png" alt="">
+                                                <!-- <img src="../../assets/images/iddown.png" alt=""> -->
+                                                <div class="go-img">
+                                                <img :src="this.imgfront" alt="">
+                                                </div>
                                                 <div class="nk-ok">
                                                     <div class="df">身份证反面</div>
-                                                    <div class="ckrow-buttons" @click="hecha">核查情况</div>
+                                                    <div class="ckrow-buttons" @click="hecha(2)">核查情况</div>
                                                 </div>
                                             </el-col>
                                             <el-col :span="6" class="re-img go-center">
-                                                <img src="../../assets/images/timg.gif" alt="">
+                                                <!-- <img src="../../assets/images/timg.gif" alt=""> -->
+                                                <img :src="this.imgfront" alt="">
                                                 <div class="nk-oks">
                                                     <div class="df">活体截图</div>
-                                                    <div class="ckrow-buttons" @click="hecha">核查情况</div>
+                                                    <div class="ckrow-buttons" @click="hecha(3)">核查情况</div>
                                                 </div>
                                             </el-col>
-                                            <el-col :span="6" class="re-img go-center">
+                                            <!-- <el-col :span="6" class="re-img go-center">
                                                 <img src="../../assets/images/timg.gif" alt="">
                                                 <div class="nk-oks">
                                                     <div class="df">其他</div>
                                                     <div class="ckrow-buttons" @click="hecha">核查情况</div>
                                                 </div>
-                                            </el-col>
+                                            </el-col> -->
 
                                         </el-row>
                                     </div>
@@ -140,25 +152,34 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:146px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="12">姓名：刘德华</el-col>
-                                            <el-col :span="12">姓名：刘德华</el-col>
+                                            <el-col :span="12">姓名：{{contractdata.contactsName}}</el-col>
+                                            <el-col :span="12">姓名：{{contractdata.otherContactsName}}</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="12">关系：父母</el-col>
-                                            <el-col :span="12">关系：父母</el-col>
+                                            <el-col :span="12">关系：
+                                                <span v-if="contractdata.contactsRelation == 0">配偶</span>
+                                                <span v-else-if="contractdata.contactsRelation == 1">父母</span>
+                                                <span v-else="contractdata.contactsRelation == 2">子女</span>
+                                            </el-col>
+                                            <el-col :span="12">关系：
+                                                <span v-if="contractdata.otherContactsRelation == 0">亲属</span>
+                                                <span v-else-if="contractdata.otherContactsRelation == 1">朋友</span>
+                                                <span v-else-if="contractdata.otherContactsRelation == 2">同事</span>
+                                                <span v-else="contractdata.otherContactsRelation == 3">同学</span>
+                                            </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
                                             <el-col :span="6">
-                                                电话：13202020000
+                                                电话：{{contractdata.contactsPhone}}
                                             </el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
+                                                <div class="ckrow-button" @click="dianhe(contractdata.contactsPhone)">电核情况</div>
                                             </el-col>
                                             <el-col :span="6">
-                                                电话：13202020000
+                                                电话：{{contractdata.otherContactsPhone}}
                                             </el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
+                                                <div class="ckrow-button" @click="dianhe(contractdata.otherContactsPhone)">电核情况</div>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -171,22 +192,22 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:146px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="12">借款金额：12222222</el-col>
-                                            <el-col :span="12">订单金额：12222222</el-col>
+                                            <el-col :span="12">借款金额：{{loaninfo.loanAmount}}</el-col>
+                                            <el-col :span="12">订单金额：{{loaninfo.orderAmount}}</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="12">借款期限：24</el-col>
-                                            <el-col :span="6">还款方式：等额本息</el-col>
+                                            <el-col :span="12">借款期限：{{loaninfo.term}}</el-col>
+                                            <el-col :span="6">还款方式：{{loaninfo.loanType}}</el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button" @click="showrepayplan">详细还款计划</div>
+                                                <div class="ckrow-button"    @click="getrepayplan">详细还款计划</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
+                                            <!-- <el-col :span="12">
+                                                银行卡：{{loaninfo.loanAmount}}
+                                            </el-col> -->
                                             <el-col :span="12">
-                                                银行卡：6216617001004837901
-                                            </el-col>
-                                            <el-col :span="12">
-                                                还款日：12
+                                                还款日：{{loaninfo.returnDate}}
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -199,20 +220,20 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:146px;">
                                         <el-row class="ck-row">
-                                            <el-col>商户名称：大德路西餐厅</el-col>
+                                            <el-col>商户名称：{{mchinfo.mchName}}</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col>商户地址：广州市越秀区大德路623号首层</el-col>
+                                            <el-col>商户地址：{{mchinfo.mchAddress}}</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
                                             <el-col :span="12">
-                                                商户联系人：张学友
+                                                商户联系人：{{mchinfo.mchContact}}
                                             </el-col>
                                             <el-col :span="6">
-                                                联系电话：13202020000
+                                                联系电话：{{mchinfo.mobile}}
                                             </el-col>
                                             <el-col :span="6">
-                                                <div class="ckrow-button" @click="dianhe">电核情况</div>
+                                                <div class="ckrow-button" @click="dianhe(mchinfo.mobile)">电核情况</div>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -227,9 +248,9 @@
         </div>
 
         <!-- 还款计划查看弹框 -->
-        <el-dialog title="还款计划" center :visible.sync="dialogTableVisible">
+        <el-dialog title="还款计划"  top='30vh'  center :visible.sync="dialogTableVisible">
             <el-table
-            :data="tableData"
+            :data="repayplan"
             border
             size="mini"
             stripe
@@ -238,30 +259,29 @@
             element-loading-background="rgba(0, 0, 0, 0.8)"
             style="width:100%; height:100%;"
         >
-            <el-table-column label="期数" align="center"></el-table-column>
-            <el-table-column label="还款日" align="center" width="145"></el-table-column>
-            <el-table-column label="应还款金额" align="center" width="145"></el-table-column>
-            <el-table-column label="应还本金" align="center" width="145"></el-table-column>
-            <el-table-column label="应还利息" align="center" width="145"></el-table-column>
-            <el-table-column label="应还其他费用" align="center"></el-table-column>
+            <el-table-column prop="term" label="期数" align="center"></el-table-column>
+            <el-table-column prop="repayDate" label="还款日" align="center" width="145"></el-table-column>
+            <el-table-column prop="total" label="应还款金额" align="center" width="145"></el-table-column>
+            <el-table-column prop="principal" label="应还本金" align="center" width="145"></el-table-column>
+            <el-table-column prop="interest" label="应还利息" align="center" width="145"></el-table-column>
+            <el-table-column prop="otherFees" label="应还其他费用" align="center"></el-table-column>
             </el-table>
         </el-dialog>
 
         <!-- 电核情况 -->
         <el-dialog title="电核情况" center  top='30vh'  :visible.sync="dialogdianheVisible">
-            <el-collapse v-model="activeName" accordion>
-            <el-collapse-item title="2019.10.31 18:42:50">
-                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-            </el-collapse-item>
-            <el-collapse-item title="2019.10.31 18:42:50">
-                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-            </el-collapse-item>
-            <el-collapse-item title="2019.10.31 18:42:50">
-                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-            </el-collapse-item>
+            <el-collapse accordion>
+                <el-collapse-item v-if="dianhelist==''" title="无数据">
+                    <div>接通状态：无数据</div>
+                    <div>接通详情：无数据</div>
+                </el-collapse-item>
+
+                <el-collapse-item v-else v-for="item in dianhelist" :key="item.index"  :title="item.cTime">
+                    <div>接通状态：{{item.phoneCheckDesc}}
+                    </div>
+                    <div>接通详情：{{item.phoneRemark}}
+                    </div>
+                </el-collapse-item>
             </el-collapse>
         </el-dialog>
 
@@ -270,9 +290,9 @@
             <span slot="title" class="dialog-title">
                 <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-icon-test1" />
-            </svg>符合规范</span>
-            <div style="width: 400px;height: 108px;font-size: 18px;color: #aaabb8;margin:0 auto;text-indent:2em">
-                此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息，此处是一条影像核查判断的意见备注信息
+            </svg>{{hechalist.imageCheckDesc}}</span>
+            <div style="font-size: 18px;color: #aaabb8;margin:0 auto;text-indent:2em">
+                {{hechalist.imageRemark}}
             </div>
         </el-dialog>
    </div>
@@ -281,36 +301,318 @@
 export default {
     data(){
         return{
-            tableData: [{
-            index: '王小虎',
-            },{
-            index: '王小虎',
-            },{
-            index: '王小虎',
-            },{
-            index: '王小虎',
-            },{
-            index: '王小虎',
-            },],
+            tableData: [],
             dialogTableVisible: false,//还款计划弹框
             dialogdianheVisible: false,//电核情况
             dialoghechaVisible:false,//核查情况
             activeName: '',//电核情况内容
             textarea: '',   //审批结论
+
+            shenhedetail:[],//审核详情
+
+            hechalist:[],//核查情况
+
+            //申请人信息
+            data:[],
+
+            
+            //影像信息
+            imgfront:'',//正面
+            imgback:'',//反面
+            huoti:'',//活体
+            other:[],//其他
+            
+            //还款计划
+            repayplan:[],
+
+            //联系人信息
+            contractdata:[],
+            
+            //借款信息
+            loaninfo:[],
+
+            //商户信息
+            mchinfo:[],
+
+            //电核情况
+            dianhelist:[]
         }
     },
-    components:{
-
+    mounted() {
+        this.getshenhedetail();//获取审核详情
+        this.getbaseinfo();//获取申请人信息
+        this.getcontractinfo();//获取联系人信息
+        this.getimglist();//获取影像信息
+        this.getloaninfo();//获取借款信息
+        this.getmchinfo();//获取商户信息
     },
     methods: {
         //核查情况
-        hecha(){
-            this.dialoghechaVisible = true;
+        hecha(index){
+            this.dialoghechaVisible = true
+
+             //获取流水号
+            var applyNo = this.$route.query.applyNo
+
+            this.$axios({
+                method: "get",
+                url: "/checkBench/getImageCheck",
+                params: {
+                        'applyNo': applyNo,
+                        'imageType': index
+                    }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.hechalist = res.data
+                } else {
+                    this.$message({
+                    message: '获取核查情况失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
         },
+        //获取审核详情
+        getshenhedetail(){
+            //获取流水号
+            var applyNo = this.$route.query.applyNo
+
+            this.$axios({
+                method: "post",
+                url: "/checkBench/getCheck",
+                params: {
+                        'applyNo': applyNo
+                    }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.shenhedetail = res.data
+                } else {
+                    this.$message({
+                    message: '获取审核详情失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
+        },
+        
+        //获取申请人信息
+        getbaseinfo(){
+             //获取流水号
+            var applyNo = this.$route.query.applyNo
+
+            this.$axios({
+                method: "get",
+                url: "/checkBench/base",
+                params: {
+                        'applyNo': applyNo
+                    }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.data = res.data
+                } else {
+                    this.$message({
+                    message: '获取申请人信息失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
+        },
+
+        
+        //获取影像信息
+        getimglist(){
+             //获取流水号
+            var applyNo = this.$route.query.applyNo
+
+            this.$axios({
+                method: "get",
+                url: "/checkBench/listImage",
+                params: {
+                        'applyNo': applyNo
+                    }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    (res.data).forEach((data)=>{
+
+                        if(data.imageType==1){
+                            this.imgfront = data.imageUrl
+                        }else if(data.imageType==2){
+                            this.imgback = data.imageUrl
+                        }else{
+                            this.huoti = data.imageUrl
+                        }
+                    })
+                } else {
+                    this.$message({
+                    message: '获取影像信息失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
+        },
+
+
         // 查看电核情况
-        dianhe(){
+        dianhe(phone){
+            var applyNo = this.$route.query.applyNo;
+            var phone = phone;
             this.dialogdianheVisible = true;
+
+            this.$axios({
+                method: "get",
+                url: "/checkBench/getPhoneCheck",
+                params: {
+                        'applyNo': applyNo,
+                        'phone':phone
+                    }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.dianhelist = res.data
+                } else {
+                    this.$message({
+                    message: '电核情况获取失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {
+                    this.$message({
+                    message: '电核情况获取失败！',
+                    type: "error"
+                    });
+                }
+            );
+
         },
+        
+        //获取联系人信息
+        getcontractinfo(){
+             //获取流水号
+            var applyNo = this.$route.query.applyNo
+
+            this.$axios({
+                method: "get",
+                url: "/checkBench/contact",
+                params: {
+                        'applyNo': applyNo
+                    }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.contractdata = res.data
+                } else {
+                    this.$message({
+                    message: '获取联系人信息失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
+        },
+
+         
+        //获取借款信息
+        getloaninfo(){
+             //获取流水号
+            var applyNo = this.$route.query.applyNo
+
+            this.$axios({
+                method: "get",
+                url: "/checkBench/loan",
+                params: {
+                        'applyNo': applyNo
+                    }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.loaninfo = res.data
+                } else {
+                    this.$message({
+                    message: '获取借款信息失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
+        },
+
+        
+        //获取商户信息
+        getmchinfo(){
+             //获取流水号
+            var applyNo = this.$route.query.applyNo
+
+            this.$axios({
+                method: "get",
+                url: "/checkBench/mch",
+                params: {
+                        'applyNo': applyNo
+                    }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.mchinfo = res.data
+                } else {
+                    this.$message({
+                    message: '获取商户信息失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
+        },
+
+        //获取还款计划
+        getrepayplan(){
+            //获取流水号
+            var applyNo = this.$route.query.applyNo
+            this.dialogTableVisible = true;
+            this.$axios({
+                method: "post",
+                url: "/checkBench/listRepayPlan",
+                params: {
+                        'applyNo': applyNo
+                    }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.repayplan = res.data
+                } else {
+                    this.$message({
+                    message: '获取商户信息失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {}
+            );
+        },
+
         //查看还款计划
         showrepayplan(){
             this.dialogTableVisible = true;

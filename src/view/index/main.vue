@@ -34,21 +34,21 @@
                         <el-tabs v-model="activeName" @tab-click="handleClick">
                             <el-tab-pane  label="工作台" v-if="showworkstage"><span slot="label">
                                 <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-gongzuotai4" />
+                                <use xlink:href="#icon-ziyuan-copy" />
                             </svg>工作台</span>
                             <!-- 引入工作台子组件 -->
                             <workstage></workstage>
                             </el-tab-pane>
                             <el-tab-pane label="审批台"><span slot="label">
                                 <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-examine" />
+                                <use xlink:href="#icon-examine-copy" />
                             </svg>审批台</span>
                             <!-- 引入审批台子组件 -->
                             <approvalstage v-if="sonRefresh"></approvalstage>
                             </el-tab-pane>
                             <el-tab-pane  label="统计"><span slot="label">
                                 <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-tongji3" />
+                                <use xlink:href="#icon-tongji1-copy" />
                             </svg>统计</span>
                             <!-- 引入统计子组件 -->
                             <statistical></statistical>
@@ -77,7 +77,7 @@
             action='#'
             >
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            <div class="el-upload__tip" slot="tip">只能上传xsl/xls文件，且不超过500kb</div>
+            <div class="el-upload__tip" slot="tip">只能上传.xls/.xlsx/.csv格式文件</div>
             </el-upload>
             </div>
             <span slot="footer" class="dialog-footer">
@@ -139,6 +139,7 @@ export default {
                         type: 'success'
                         }).then(() => {
                             //确定
+                            
                         }).catch(() => {
                             //取消    
                         });
@@ -172,73 +173,7 @@ export default {
                 return true
             }
         },
-        
-    //上传按钮
-      pickFile(e){
-          var files = e.target.files || e.dataTransfer.files;
-          if(!files.length) return;
-          this.excelTobase(files[0]);
-      },
 
-      excelTobase(file){
-          var that = this;
-          var pos = file.name.lastIndexOf('.');
-          var type = file.name.substring(pos + 1);
-          if(type.toLowerCase() != 'xls' && type.toLowerCase() != 'xlsx' && type.toLowerCase() !='csv'){
-              this.$message.error('请上传xls、xlsx、csv格式的excel文件.');
-              this.canUpload = false;
-          }else{
-              this.fileType = type;
-              this.canUpload = true;
-              this.fileName = file.name.substring(0,pos);
-              this.file = file;
-              var reader = new FileReader();
-              reader.readAsDataURL(file);
-              reader.onload = function(e){
-                  that.base64 = e.target.result;
-              };
-           }
-      },
-
-//异步上传
-      async insertfile(){
-          if(this.canUpload){
-			    var FormDatas=new FormData($("#form-article-add")[0]);
-              FormDatas.append("file",FormDatas);
-              this.$axios({
-                  method: "post",
-                  url: this.$store.state.domain + "/file/loanFile/upload",
-                  data: FormDatas,
-                  headers:{'Content-Type':'multipart/form-data'}
-                }).then(
-                  response => {
-                    var res = response.data;
-                    if (res.code == 0) {
-                        this.$message({
-                          message: res.msg,
-                          type: 'success'
-                        });
-                    } else {
-                      this.$message({
-                        message: res.msg,
-                        type: "error"
-                      });
-                    }
-                  },
-                  error => {
-                    this.$message({
-                        message: '您的账号无此菜单查看权限，谢谢合作',
-                        type: "error"
-                      });
-                      }
-                );
-          }else{
-          this.$message({
-            type: 'danger',
-            message: '请选取文件上传.'
-          }); 
-      }
-      },
         //切换tab时事件
         handleClick(tab, event) {
             if(tab.label == '统计'){

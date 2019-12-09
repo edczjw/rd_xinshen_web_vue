@@ -142,7 +142,9 @@
                                                 <div class="nk-ok">
                                                     <div class="df">身份证正面</div>
                                                     <div class="df-s">
-                                                        <div class="ckrow-button" @click="boda(data.othMobile)">核查情况</div>
+                                                        <el-button size="mini" @click="hecha(1)">
+                                                            核查情况
+                                                        </el-button>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -153,11 +155,9 @@
                                                 <div class="nk-ok">
                                                     <div class="df">身份证反面</div>
                                                     <div class="df-s">
-                                                        <!-- <el-select placeholder="请选择">
-                                                        <el-option label="通过" value="shanghai"></el-option>
-                                                        <el-option label="拒绝" value="beijing"></el-option>
-                                                        <el-option label="待补件" value="beijing"></el-option>
-                                                        </el-select> -->
+                                                        <el-button size="mini" @click="hecha(2)">
+                                                            核查情况
+                                                        </el-button>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -166,36 +166,39 @@
                                                 <div class="nk-oks">
                                                     <div class="df">活体截图</div>
                                                     <div class="df-s">
-                                                        <!-- <el-select placeholder="核查情况">
-                                                        <el-option label="正常" value="shanghai"></el-option>
-                                                        <el-option label="缺失" value="beijing"></el-option>
-                                                        <el-option label="电子屏" value="beijing"></el-option>
-                                                        <el-option label="其他" value="beijing"></el-option>
-                                                        </el-select> -->
+                                                        <el-button size="mini" @click="hecha(3)">
+                                                            核查情况
+                                                        </el-button>
                                                     </div>
                                                 </div>
                                             </el-col>
-                                            <!-- <el-col :span="6" class="re-img go-center">
-                                                <img src="../../assets/images/timg.gif" alt="">
-                                                <div class="nk-oks">
-                                                    <div class="df">其他</div>
-                                                    <div class="df-s">
-                                                    </div>
+                                            <div v-for="item in other" :key="item.index">
+                                            <el-col :span="6" class="re-img go-center" >
+                                                <img :src="item" alt="">
+                                                <div  class="nk-oks2">
+                                                    其他照片
                                                 </div>
-                                            </el-col> -->
+                                            </el-col>
+                                            </div>
 
                                             <el-col :span="6" class="re-img go-center">
                                                 <el-upload
-                                                class="upload-demo"
+                                                class="avatar-uploader"
                                                 drag
+                                                :http-request="Upload1"
                                                 :show-file-list='false'
-                                                action="https://jsonplaceholder.typicode.com/posts/"
-                                                multiple>
+                                                :before-upload="beforeAvatarUpload1"
+                                                action>
                                                 <i class="el-icon-upload"></i>
                                                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em><br>
-                                                <b>只能上传jpg/png文件，且不超过500kb</b>
+                                                <b>只限上传jpg/png文件，且不超过2MB</b>
                                                 </div>
                                                 </el-upload>
+                                                <el-progress
+                                                    v-if="videoFlag1"
+                                                    :percentage="videoUploadPercent1"
+                                                    style="margin-top:30px;"
+                                                ></el-progress>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -301,6 +304,30 @@
 
             </div>
         </div>
+
+        
+        
+        <!-- 核查情况弹框 -->
+        <el-dialog title="核查情况"  top='30vh'  center :visible.sync="dialoghechaVisible">
+            <el-form ref="form" :model="form" label-width="80px">
+            <el-form-item label="核查情况">
+                <el-select v-model="hechaform.status" 
+                    placeholder="请选择">
+                    <el-option v-for="item in options3"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"></el-option>
+                </el-select>
+            </el-form-item>
+             <el-form-item label="核查意见">
+                <el-input type="textarea" :rows="4" v-model="hechaform.remark"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="hechaSubmit()">提交</el-button>
+                <el-button @click="dialoghechaVisible = false">取消</el-button>
+            </el-form-item>
+            </el-form>
+        </el-dialog>
         
         <!-- 拨打情况弹框 -->
         <el-dialog title="拨打情况"  top='30vh'  center :visible.sync="dialogbodaVisible">
@@ -318,7 +345,7 @@
                 <el-input type="textarea" :rows="4" v-model="bodaform.phoneRemark"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="bodaonSubmit()">确定</el-button>
+                <el-button type="primary" @click="bodaonSubmit()">提交</el-button>
                 <el-button @click="dialogbodaVisible = false">取消</el-button>
             </el-form-item>
             </el-form>
@@ -351,6 +378,41 @@
 export default {
     data(){
         return{
+            dialoghechaVisible:false,//核查情况弹框显示
+            videoFlag1: false, //进度条
+            videoUploadPercent1: 0,
+
+            //核查情况
+            hechaform:{
+                applyNo:'',//流水号
+                imageType:null,//图像类型
+                remark:'',//影像核验说明
+                status:null,//审核状态
+            },
+
+            
+            //核查下拉框
+            options3: [{
+            value: 0,
+            label: "待处理"
+            },
+            {
+            value: 1,
+            label: "符合要求"
+            },
+            {
+            value: 2,
+            label: "缺失"
+            },
+            {
+            value: 3,
+            label: "电子屏"
+            },
+            {
+            value: 4,
+            label: "非本人"
+            }],
+            
             //拨打下拉框
             options2: [{
             value: 0,
@@ -423,6 +485,7 @@ export default {
             imgfront:'',//正面
             imgback:'',//反面
             huoti:'',//活体
+            num:4,//影像数目
             other:[],//其他
 
             //联系人信息
@@ -441,11 +504,183 @@ export default {
     mounted() {
         this.getbaseinfo();//获取申请人信息
         this.getcontractinfo();//获取联系人信息
-        this.getimglist();//获取影响信息
+        this.getimglist();//获取影像信息
         this.getloaninfo();//获取借款信息
         this.getmchinfo();//获取商户信息
     },
     methods: {
+            //上传其他照片
+            Upload1(file) {
+            var _that = this;
+            this.videoFlag1 = true;
+            const OSS = require("ali-oss");
+            let _self = this;
+            var bucket; //OSS文件名称
+            var region;
+            var extranet;
+            var accessKeyId;
+            var accessKeySecret;
+
+            this.$axios({
+                method: "get",
+                url: "/bus/aliyun"
+            }).then(
+                response => {
+                // 向后台发请求 拉取OSS相关配置
+                const client = new OSS({
+                    region: "oss-cn-shenzhen", // 服务器集群地区
+                    extranet: response.data.data.extranet,
+                    accessKeyId: response.data.data.secretId, // OSS帐号
+                    accessKeySecret: response.data.data.secretKey, // OSS 密码
+                    bucket: response.data.data.bucket // 阿里云上存储的 Bucket
+                });
+
+                var fileName = file.file.name;
+                //时间戳
+                const obj = this.timestamp();
+                //时间戳
+                const obj2 = this.timestamp1();
+                //后缀名
+                const suffix = fileName.substr(fileName.indexOf("."));
+
+                const storeAs = "dev/msxs/" + this.$route.query.applyNo +"/" +
+                    obj + "-" + obj2 + "-" + fileName;
+                //上传
+                client.multipartUpload(storeAs, file.file, {
+                    progress: function(p) {
+                        //获取进度条的值
+                        _that.videoUploadPercent1 = p * 100;
+                    }
+                    })
+                    .then(res => {
+                    if (res.url != null || res.url != "") {
+
+                        //获取流水号
+                        var applyNo = this.$route.query.applyNo
+                        var productCode = this.$route.query.productCode
+                        var sysCode = this.$route.query.sysCode
+                        var num = _that.num + 1
+                        let data = {
+                            applyNo:applyNo,
+                            imageType: num,
+                            productCode:productCode,
+                            sysCode:sysCode,
+                            url:"https://msxdbuc-share.oss-cn-shenzhen.aliyuncs.com/" + storeAs
+                        }
+
+                        //返回服务器文件url
+                        this.videoFlag1 = false;
+                        _that.videoUploadPercent1 = 100;
+                        this.$notify({
+                        title: "上传结果",
+                        type: "success",
+                        offset: 100,
+                        dangerouslyUseHTMLString: true,
+                        message: "<strong>" + file.file.name + "文件上传成功！</strong>",
+                        position: "bottom-left"
+                        });
+                        
+                    this.$axios({
+                        method: "post",
+                        url: "/checkBench/addImage",
+                        data: data
+                    }).then(
+                        response => {
+                        var res = response.data;
+                        if (res.code == '0000') {
+                            //重置
+                            this.other.length = 0;
+                            this.getimglist()
+                            this.$message({
+                            message: '图片保存成功！',
+                            type: "success"
+                            });
+                        } else {
+                            this.$message({
+                            message: '图片保存失败！',
+                            type: "error"
+                            });
+                        }
+                        },
+                        error => {
+                            this.$message({
+                            message: '图片保存异常！',
+                            type: "error"
+                            });
+                        }
+                    );
+                    }
+                    })
+                    .catch(err => {
+                    this.$message.error("上传文件异常:" + err);
+                    });
+                //失败
+                },
+                //打印
+                response => {}
+            );
+            },
+
+            beforeAvatarUpload1(file) {
+                const isJPG = file.type === "image/jpeg" || file.type === "image/png";
+                const isLt2M = file.size / 1024 / 1024 < 2;
+                if (!isJPG) {
+                    this.$message.error("上传图片只能是 JPG 格式或者 PNG 格式!");
+                }
+                else if(!isLt2M) {
+                    this.$message.error("上传头像图片大小不能超过 2MB!");
+                }
+                return isLt2M && isJPG;
+            },
+
+        //打开核查情况弹框
+        hecha(index){
+            this.dialoghechaVisible = true
+            //影像类型 1-身份证正面 2-身份证反面 3-活体截图
+            this.hechaform.imageType = index
+        },
+        
+        //核查情况
+        hechaSubmit(index){
+            //获取流水号
+            this.hechaform.applyNo = this.$route.query.applyNo
+
+            this.$axios({
+                method: "post",
+                url: "/checkBench/changeImageCheck",
+                data: this.hechaform
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.hechaform.status = null;
+                    this.hechaform.remark = '';
+
+                    this.$message({
+                    message: '核查情况提交成功！',
+                    type: "success"
+                    });
+                 this.dialoghechaVisible = false
+                } else {
+                    this.hechaform.status = null;
+                    this.hechaform.remark = '';
+                    this.$message({
+                    message: '核查情况提交失败！',
+                    type: "error"
+                    });
+                }
+                },
+                error => {
+                    this.hechaform.status = null;
+                    this.hechaform.remark = '';
+                    this.$message({
+                    message: '核查情况提交失败！',
+                    type: "error"
+                    });
+                }
+            );
+        },
+
         //拨打情况
         bodaonSubmit(){
             //获取流水号
@@ -468,6 +703,7 @@ export default {
                     message: '拨打情况提交成功！',
                     type: "success"
                     });
+                    this.dialogbodaVisible = false;
                 } else {
                     this.bodaform.phoneCheck = null;
                     this.bodaform.phoneRemark = '';
@@ -529,14 +765,18 @@ export default {
                 response => {
                 var res = response.data;
                 if (res.code == '0000') {
+                    //数据库图片数量
+                    this.num = res.data.length;
                     (res.data).forEach((data)=>{
-
+                        //将数目记录
                         if(data.imageType==1){
                             this.imgfront = data.imageUrl
                         }else if(data.imageType==2){
                             this.imgback = data.imageUrl
-                        }else{
+                        }else if(data.imageType==3){
                             this.huoti = data.imageUrl
+                        }else if(data.imageType >=4){
+                            this.other.push(data.imageUrl)
                         }
                     })
                 } else {
@@ -662,6 +902,11 @@ export default {
 
         //提交审批结论
         subsp(){
+            this.$confirm('此操作将提交此案件"所有的"审批信息, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {
             //获取流水号
             var applyNo = this.$route.query.applyNo
             var productCode = this.$route.query.productCode
@@ -678,19 +923,28 @@ export default {
                 response => {
                 var res = response.data;
                 if (res.code == '0000') {
-                    this.$message({
-                    message: '审批结论提交成功！',
-                    type: "success"
+                    this.$confirm('审批信息提交成功！', '提示', {
+                    confirmButtonText: '确定',
+                    type: 'success',
+                    showCancelButton:false
+                    }).then(() => {
+                    this.$router.push('/mainhome')
+                    }).catch(() => {
+
                     });
+
                 } else {
                     this.$message({
-                    message: '审批结论提交失败！',
+                    message: res.msg+'，审批信息提交失败，请检查是否完成所有必审项！',
                     type: "error"
                     });
                 }
                 },
                 error => {}
-            );
+            );}).catch(() => {
+            
+            
+            });
         },
 
         //拨打情况
@@ -711,7 +965,47 @@ export default {
         //返回上一页
         goBack() {
         this.$router.push('/mainhome')
-      }
+      },
+        //  时间戳
+        timestamp() {
+        const time = new Date();
+        const y = time.getFullYear();
+        const m = time.getMonth() + 1;
+        const d = time.getDate();
+        const h = time.getHours();
+        const mm = time.getMinutes();
+        const s = time.getSeconds();
+        return "" + y + "-" + this.Add0(m) + "-" + this.Add0(d);
+        },
+        Add0: function(m) {
+        return m < 10 ? "0" + m : m;
+        },
+
+        //  时间戳1
+        timestamp1() {
+        const time = new Date();
+        const y = time.getFullYear();
+        const m = time.getMonth() + 1;
+        const d = time.getDate();
+        const h = time.getHours();
+        const mm = time.getMinutes();
+        const s = time.getSeconds();
+        return (
+            "" +
+            y +
+            "-" +
+            this.Add1(m) +
+            "-" +
+            this.Add1(d) +
+            "_" +
+            this.Add1(h) +
+            this.Add1(mm) +
+            this.Add1(s)
+        );
+        },
+        Add1: function(m) {
+        return m < 10 ? "0" + m : m;
+        },
     }
 }
 </script>

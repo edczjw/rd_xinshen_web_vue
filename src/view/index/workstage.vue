@@ -44,21 +44,23 @@
 
                     <el-row  :gutter="24">
                     <el-col :span='6'>
-                <el-form-item prop="ID">
+                <el-form-item>
                             <el-input v-model.trim="form.idCard" 
                             clearable 
                             auto-complete="true"></el-input>
                 </el-form-item>
                     </el-col>
                     <el-col :span='6'>
-                <el-form-item prop="mobile">
+                <el-form-item>
                             <el-input v-model.trim="form.mobile"
                             clearable 
-                            auto-complete="true"></el-input>
+                            maxlength="11"
+                            show-word-limit 
+                             ></el-input>
                 </el-form-item>
                     </el-col>
                     <el-col :span='6'>
-                <el-form-item prop="name">
+                <el-form-item>
                             <el-input v-model.trim="form.name"
                             clearable 
                             auto-complete="true"></el-input>
@@ -218,6 +220,9 @@ export default {
 
             //审批状态
             options: [{
+            value: null,
+            label: "全部"
+            },{
             value: 1,
             label: "通过"
             },
@@ -286,14 +291,14 @@ export default {
     methods: {
         //查询
         search(formName){
-            this.$refs[formName].validate((valid) => {
-            if (valid) {
+            // this.$refs[formName].validate((valid) => {
+            // if (valid) {
                 this.load(this.form);
-                } else {
-                console.log('error submit!!');
-                return false;
-            }
-            });
+            //     } else {
+            //     console.log('error submit!!');
+            //     return false;
+            // }
+            // });
         },
 
         //加载
@@ -311,9 +316,10 @@ export default {
                     this.form.currentPage = res.data.currentPage;
                     this.form.pageSize = res.data.pageSize;
                 } else {
-                    this.$message({
-                    message: res.msg,
-                    type: "error"
+                    this.$notify({
+                    title: '提示',
+                    message: res.msg+'，查询数据异常',
+                    type: 'warning'
                     });
                 }
                 },
@@ -377,6 +383,9 @@ export default {
                     }).then(() => {
                         //确定
                         this.dialogFormVisible = false
+                        this.multipleSelection.length = 0;
+                        this.operator = ''
+
                         //刷新列表
                         this.load(this.form)
                     }).catch(() => {

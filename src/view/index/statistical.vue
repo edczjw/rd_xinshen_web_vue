@@ -146,6 +146,9 @@ export default {
             count:0,
             //审批状态
             options: [{
+            value: null,
+            label: "全部"
+            },{
             value: 1,
             label: "通过"
             },
@@ -209,9 +212,10 @@ export default {
                 this.form.currentPage = res.data.currentPage;
                 this.form.pageSize = res.data.pageSize;
             } else {
-                this.$message({
-                message: res.msg,
-                type: "error"
+                this.$notify({
+                title: '提示',
+                message: res.msg+'，查询数据异常',
+                type: 'warning'
                 });
             }
             },
@@ -246,31 +250,41 @@ export default {
         },
         //导出
         output(){
-            this.$axios({
-            method: "post",
-            url: "/statisticBench/exportCase",
-            data: this.form,
-            responseType: 'blob',
-            emulateJSON:true
-        }).then(
-            response => {
-            let blob = new Blob([response.data], {
-                    type: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                })
-                if (window.navigator.msSaveOrOpenBlob) {
-                    navigator.msSaveBlob(blob);
-                } else {
-                    let elink = document.createElement('a');
-                    elink.download = this.getdate()+'_'+'信审统计'+".xls";
-                    elink.style.display = 'none';
-                    elink.href = URL.createObjectURL(blob);
-                    document.body.appendChild(elink);
-                    elink.click();
-                    document.body.removeChild(elink);
-                }
-            },
-            error => {}
-        );
+            this.$confirm('此操作将导出该文件, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {
+           
+                    this.$axios({
+                    method: "post",
+                    url: "/statisticBench/exportCase",
+                    data: this.form,
+                    responseType: 'blob',
+                    emulateJSON:true
+                }).then(
+                    response => {
+                    let blob = new Blob([response.data], {
+                            type: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                        })
+                        if (window.navigator.msSaveOrOpenBlob) {
+                            navigator.msSaveBlob(blob);
+                        } else {
+                            let elink = document.createElement('a');
+                            elink.download = this.getdate()+'_'+'信审统计'+".xls";
+                            elink.style.display = 'none';
+                            elink.href = URL.createObjectURL(blob);
+                            document.body.appendChild(elink);
+                            elink.click();
+                            document.body.removeChild(elink);
+                        }
+                    },
+                    error => {}
+                );
+            }).catch(() => {
+            
+            });
+
         },
 
         //获取时间戳

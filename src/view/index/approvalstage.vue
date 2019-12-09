@@ -49,6 +49,8 @@
                 <el-form-item>
                             <el-input v-model.trim="form.mobile"
                             clearable 
+                            maxlength="11"
+                            show-word-limit 
                             auto-complete="true"></el-input>
                 </el-form-item>
                     </el-col>
@@ -161,6 +163,9 @@ export default {
             count:0,
             //审批状态
             options: [{
+            value: null,
+            label: "全部"
+            },{
             value: 1,
             label: "通过"
             },
@@ -250,9 +255,10 @@ export default {
                 this.form.currentPage = res.data.currentPage;
                 this.form.pageSize = res.data.pageSize;
             } else {
-                this.$message({
-                message: res.msg,
-                type: "error"
+                this.$notify({
+                title: '提示',
+                message: res.msg+'，查询数据异常',
+                type: 'warning'
                 });
             }
             },
