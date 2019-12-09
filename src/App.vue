@@ -2,7 +2,7 @@
   <div id="app">
     <router-view/>
     <!-- 返回顶部 -->
-    <div id="dtop" class="gotop animated fadeInDown" title="返回顶部">
+    <div id="dtop" class="gotop animated fadeInUp" title="返回顶部">
      <div  @click="movetop()"> 顶部</div>
     </div>
   </div>
@@ -58,13 +58,12 @@ body{
   line-height: 46px;
   text-align: center;
   font-size: 14px;
-  font-weight: bolder;
   color:rgb(22, 149, 223);
   border-radius: 100%;
-  box-shadow: 0px 0px 0px 2px rgba(35, 170, 211, 0.61);
+  box-shadow: 0px 0px 0px 1px rgba(35, 170, 211, 0.61);
   font-family: PingFangSC-Regular, sans-serif;
 }
-.gotop2:hover{
-  border: 1px solid rgb(184, 187, 184);
+.gotop:hover{
+  font-weight: bolder;
 }
 </style>
