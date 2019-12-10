@@ -174,32 +174,17 @@
                                             </el-col>
                                             <div v-for="item in other" :key="item.index">
                                             <el-col :span="6" class="re-img go-center" >
-                                                <img :src="item" alt="">
+                                                <img :src="item.imageUrl" alt="">
                                                 <div  class="nk-oks2">
-                                                    其他照片
+                                                    {{item.imageTypeDesc}}(补件)
                                                 </div>
                                             </el-col>
                                             </div>
 
                                             <el-col :span="6" class="re-img go-center">
-                                                <el-upload
-                                                class="avatar-uploader"
-                                                drag
-                                                :http-request="Upload1"
-                                                :show-file-list='false'
-                                                :before-upload="beforeAvatarUpload1"
-                                                action>
-                                                <i class="el-icon-upload"></i>
-                                                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em><br>
-                                                <b>只限上传jpg/png文件，且不超过2MB</b>
+                                                <div class="add" title="补件上传" @click="dialogshangchuanVisible=true">
                                                 </div>
-                                                </el-upload>
-                                                <el-progress
-                                                    v-if="videoFlag1"
-                                                    :percentage="videoUploadPercent1"
-                                                    style="margin-top:30px;"
-                                                ></el-progress>
-                                            </el-col>
+                                                 </el-col>
                                         </el-row>
                                     </div>
                                 </div>
@@ -306,6 +291,46 @@
         </div>
 
         
+        <!-- 上传照片弹框 -->
+        <el-dialog title="上传照片"  top='30vh'  center :visible.sync="dialogshangchuanVisible">
+            <el-form ref="form" label-width="100px">
+            <el-form-item label="选择照片类型">
+                <el-select v-model="nbm" 
+                    placeholder="请选择">
+                    <el-option v-for="item in options4"
+                    :key="item.index"
+                    :label="item.label"
+                    :value="item.value"></el-option>
+                </el-select>
+            </el-form-item>
+            </el-form>
+
+            <div class="dg">
+            <div style="float:left;">
+            <el-upload
+            class="avatar-uploader"
+            drag
+            :http-request="Upload1"
+            :show-file-list='false'
+            :before-upload="beforeAvatarUpload1"
+            action>
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em><br>
+            <b>只限上传jpg/png文件，且不超过2MB</b>
+            </div>
+            </el-upload>
+            <el-progress
+            v-if="videoFlag1"
+                :percentage="videoUploadPercent1"
+                style="margin-top:20px;width:70%;margin-left: 100px;"
+            ></el-progress></div>
+            
+            <div class="ylimg">
+                <span v-if="ylimg!=''"><img :src="ylimg" alt=""></span>
+                <!-- <span v-else><img src="../../assets/images/png.png" alt=""></span> -->
+            </div>
+        </div>
+        </el-dialog>
         
         <!-- 核查情况弹框 -->
         <el-dialog title="核查情况"  top='30vh'  center :visible.sync="dialoghechaVisible">
@@ -313,7 +338,7 @@
             <el-form-item label="核查情况">
                 <el-select v-model="hechaform.status" 
                     placeholder="请选择">
-                    <el-option v-for="item in options3"
+                    <el-option v-for="item in options5"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"></el-option>
@@ -378,6 +403,7 @@
 export default {
     data(){
         return{
+            dialogshangchuanVisible:false,//上传照片弹框
             dialoghechaVisible:false,//核查情况弹框显示
             videoFlag1: false, //进度条
             videoUploadPercent1: 0,
@@ -391,8 +417,26 @@ export default {
             },
 
             
+            //照片类型下拉框
+            options4: [{
+            value: 1,
+            label: "身份证正面照"
+            },
+            {
+            value: 2,
+            label: "身份证反面照"
+            },
+            {
+            value: 3,
+            label: "活体截图"
+            },
+            {
+            value: null,
+            label: "其他"
+            }],
+            
             //核查下拉框
-            options3: [{
+            options5: [{
             value: 0,
             label: "待处理"
             },
@@ -463,6 +507,8 @@ export default {
             label: "待处理"
             }],
 
+            ylimg:'',//预览照片
+
             //还款计划
             repayplan:[],
 
@@ -485,7 +531,7 @@ export default {
             imgfront:'',//正面
             imgback:'',//反面
             huoti:'',//活体
-            num:4,//影像数目
+            nbm:null,//照片类型
             other:[],//其他
 
             //联系人信息
@@ -511,6 +557,8 @@ export default {
     methods: {
             //上传其他照片
             Upload1(file) {
+
+            if(this.nbm != null){
             var _that = this;
             this.videoFlag1 = true;
             const OSS = require("ali-oss");
@@ -554,12 +602,12 @@ export default {
                     })
                     .then(res => {
                     if (res.url != null || res.url != "") {
-
+                        this.ylimg = "https://msxdbuc-share.oss-cn-shenzhen.aliyuncs.com/" + storeAs
                         //获取流水号
                         var applyNo = this.$route.query.applyNo
                         var productCode = this.$route.query.productCode
                         var sysCode = this.$route.query.sysCode
-                        var num = _that.num + 1
+                        var num = _that.nbm
                         let data = {
                             applyNo:applyNo,
                             imageType: num,
@@ -595,18 +643,24 @@ export default {
                             message: '图片保存成功！',
                             type: "success"
                             });
+                            this.nbm = null
+                            // this.dialogshangchuanVisible = false
                         } else {
                             this.$message({
-                            message: '图片保存失败！',
+                            message: res.msg+',图片保存失败！',
                             type: "error"
                             });
+                            this.nbm = null
+                            this.ylimg = ''
                         }
                         },
                         error => {
                             this.$message({
-                            message: '图片保存异常！',
+                            message: res.msg+',图片保存异常！',
                             type: "error"
                             });
+                            this.nbm = null
+                            this.ylimg = ''
                         }
                     );
                     }
@@ -619,6 +673,13 @@ export default {
                 //打印
                 response => {}
             );
+                
+            }else{
+                this.$message({
+                message: '请选择照片类型！',
+                type: "error"
+                });
+            }
             },
 
             beforeAvatarUpload1(file) {
@@ -766,8 +827,15 @@ export default {
                 var res = response.data;
                 if (res.code == '0000') {
                     //数据库图片数量
-                    this.num = res.data.length;
-                    (res.data).forEach((data)=>{
+                    if(res.data.length >= 4){
+                        this.options4[3].value = res.data.length+1;
+                    }else{
+                        this.options4[3].value = 4
+                    }
+
+                    this.other=res.data.addImageList;
+
+                    (res.data.imageList).forEach((data)=>{
                         //将数目记录
                         if(data.imageType==1){
                             this.imgfront = data.imageUrl
@@ -775,8 +843,6 @@ export default {
                             this.imgback = data.imageUrl
                         }else if(data.imageType==3){
                             this.huoti = data.imageUrl
-                        }else if(data.imageType >=4){
-                            this.other.push(data.imageUrl)
                         }
                     })
                 } else {

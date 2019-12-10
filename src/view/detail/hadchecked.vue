@@ -134,13 +134,15 @@
                                                     <div class="ckrow-buttons" @click="hecha(3)">核查情况</div>
                                                 </div>
                                             </el-col>
-                                            <!-- <el-col :span="6" class="re-img go-center">
-                                                <img src="../../assets/images/timg.gif" alt="">
-                                                <div class="nk-oks">
-                                                    <div class="df">其他</div>
-                                                    <div class="ckrow-buttons" @click="hecha">核查情况</div>
+                                            
+                                            <div v-for="item in other" :key="item.index">
+                                            <el-col :span="6" class="re-img go-center" >
+                                                <img :src="item.imageUrl" alt="">
+                                                <div  class="nk-oks2">
+                                                    {{item.imageTypeDesc}}(补件)
                                                 </div>
-                                            </el-col> -->
+                                            </el-col>
+                                            </div>
 
                                         </el-row>
                                     </div>
@@ -446,7 +448,8 @@ export default {
                 response => {
                 var res = response.data;
                 if (res.code == '0000') {
-                    (res.data).forEach((data)=>{
+                    this.other=res.data.addImageList;
+                    (res.data.imageList).forEach((data)=>{
 
                         if(data.imageType==1){
                             this.imgfront = data.imageUrl

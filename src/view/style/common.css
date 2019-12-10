@@ -97,6 +97,28 @@ td {
   text-align: center;
   height: 40px;
 }
+.dg {
+  height: 300px;
+}
+.dg .avatar-uploader {
+  margin-left: 100px;
+  width: 400px;
+}
+.dg .el-upload-dragger {
+  height: 200px !important;
+}
+.dg .ylimg {
+  float: right;
+  margin-right: 100px;
+  width: 290px;
+  height: 240px !important;
+  border: 1px solid #252e47;
+  background-color: #252e47;
+}
+.dg .ylimg img {
+  width: 290px;
+  height: 240px !important;
+}
 .checking-box {
   width: 1300px;
   min-height: 1950px;
@@ -331,6 +353,39 @@ td {
 }
 .el-form-item__label {
   font-family: PingFangSC-Regular, sans-serif;
+}
+.add {
+  border: 1px solid;
+  margin: 0 auto;
+  width: 218px;
+  height: 267px;
+  color: #ccc;
+  transition: color 0.25s;
+  position: relative;
+  cursor: pointer;
+}
+.add::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80px;
+  margin-left: -40px;
+  margin-top: -5px;
+  border-top: 10px solid;
+}
+.add::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 80px;
+  margin-left: -5px;
+  margin-top: -40px;
+  border-left: 10px solid;
+}
+.add:hover {
+  color: #c1c1fc;
 }
 .lg-title {
   width: 100%;
