@@ -161,8 +161,10 @@
                                                     </div>
                                                 </div>
                                             </el-col>
-                                            <el-col :span="6" class="re-img go-center">
+                                            <el-col :span="6" class="go-center">
+                                                <div class="re-img ">
                                                     <img :src="this.huoti" alt="">
+                                                </div>
                                                 <div class="nk-oks">
                                                     <div class="df">活体截图</div>
                                                     <div class="df-s">

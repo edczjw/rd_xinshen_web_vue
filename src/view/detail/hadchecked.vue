@@ -126,9 +126,11 @@
                                                     <div class="ckrow-buttons" @click="hecha(2)">核查情况</div>
                                                 </div>
                                             </el-col>
-                                            <el-col :span="6" class="re-img go-center">
+                                            <el-col :span="6" class="go-center">
                                                 <!-- <img src="../../assets/images/timg.gif" alt=""> -->
+                                                <div class="re-img ">
                                                 <img :src="this.imgfront" alt="">
+                                                </div>
                                                 <div class="nk-oks">
                                                     <div class="df">活体截图</div>
                                                     <div class="ckrow-buttons" @click="hecha(3)">核查情况</div>

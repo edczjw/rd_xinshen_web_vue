@@ -215,6 +215,12 @@ td {
   font-size: 12px;
   text-align: center;
 }
+.checking-box .ck-pag .ck-table .ck-row .re-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
 .checking-box .ck-pag .ck-table .ck-row .re-img img {
   width: 218px;
   height: 267px;
