@@ -114,7 +114,7 @@ export default {
         'statistical':statistical
     },
     mounted() {
-        this.gettime();
+        this.gettime();//获取登陆时间
     },
     methods: {
         //获取登陆时间
@@ -141,34 +141,13 @@ export default {
             this.$axios({
                 method: "get",
                 url: "/bus/roleList",
-                data: msgForm,
-                headers: { 'Content-Type': 'multipart/form-data' }
             }).then(
                 response => {
                 var res = response.data;
                 if (res.code == '0000') {
-                    this.$confirm('文件导入成功', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        showCancelButton:false,
-                        type: 'success'
-                        }).then(() => {
-                            //确定
-                            
-                        }).catch(() => {
-                            //取消    
-                        });
+                        this.showworkstage = false
                     }else{
-                    this.$confirm('文件导入失败，请重新导入', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        showCancelButton:false,
-                        type: 'warning'
-                        }).then(() => {
-                            //确定
-                        }).catch(() => {
-                            //取消    
-                        });
+                        
                     }
                 },
                 error => {}

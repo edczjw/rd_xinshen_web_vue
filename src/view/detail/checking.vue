@@ -294,7 +294,7 @@
 
         
         <!-- 上传照片弹框 -->
-        <el-dialog title="上传照片"  top='30vh'  center :visible.sync="dialogshangchuanVisible">
+        <el-dialog title="上传照片"  top='10vh' width='900px'  center :visible.sync="dialogshangchuanVisible">
             <el-form ref="form" label-width="100px">
             <el-form-item label="选择照片类型">
                 <el-select v-model="nbm" 

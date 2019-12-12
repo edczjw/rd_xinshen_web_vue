@@ -105,18 +105,19 @@ td {
   width: 400px;
 }
 .dg .el-upload-dragger {
-  height: 200px !important;
+  width: 260px;
+  height: 240px !important;
 }
 .dg .ylimg {
   float: right;
   margin-right: 100px;
-  width: 290px;
+  width: 220px;
   height: 240px !important;
   border: 1px solid #252e47;
   background-color: #252e47;
 }
 .dg .ylimg img {
-  width: 290px;
+  width: 220px;
   height: 240px !important;
 }
 .checking-box {
@@ -216,10 +217,7 @@ td {
   text-align: center;
 }
 .checking-box .ck-pag .ck-table .ck-row .re-img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
+  text-align: center;
 }
 .checking-box .ck-pag .ck-table .ck-row .re-img img {
   width: 218px;
