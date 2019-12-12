@@ -246,7 +246,7 @@ export default {
                 name:'',//姓名
                 operator:'',//审核人员
                 currentPage:0,//当前页码
-                pageSize:50,//每页记录数
+                pageSize:10,//每页记录数
                 startTime:null,//初始时间
                 endTime:null,//结束时间
             },
