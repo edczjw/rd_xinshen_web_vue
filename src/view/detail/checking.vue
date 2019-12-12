@@ -840,6 +840,8 @@ export default {
                 var res = response.data;
                 if (res.code == '0000') {
                     this.data = res.data
+                }else if(res.code == '1006'){
+                    this.data = []
                 } else {
                     this.$message({
                     message: '获取申请人信息失败！',
@@ -885,6 +887,10 @@ export default {
                             this.huoti = data.imageUrl
                         }
                     })
+                }else if(res.code == '1006'){
+                    this.imgfront = ''
+                    this.imgback = ''
+                    this.other = []
                 } else {
                     this.$message({
                     message: '获取影像信息失败！',
@@ -912,6 +918,8 @@ export default {
                 var res = response.data;
                 if (res.code == '0000') {
                     this.contractdata = res.data
+                }else if(res.code == '1006'){
+                    this.contractdata = []
                 } else {
                     this.$message({
                     message: '获取联系人信息失败！',
@@ -940,6 +948,8 @@ export default {
                 var res = response.data;
                 if (res.code == '0000') {
                     this.loaninfo = res.data
+                }else if(res.code == '1006'){
+                    this.loaninfo = []
                 } else {
                     this.$message({
                     message: '获取借款信息失败！',
@@ -968,6 +978,8 @@ export default {
                 var res = response.data;
                 if (res.code == '0000') {
                     this.mchinfo = res.data
+                }else if(res.code == '1006'){
+                    this.mchinfo = []
                 } else {
                     this.$message({
                     message: '获取商户信息失败！',
@@ -995,6 +1007,8 @@ export default {
                 var res = response.data;
                 if (res.code == '0000') {
                     this.repayplan = res.data
+                }else if(res.code == '1006'){
+                    this.repayplan = []
                 } else {
                     this.$message({
                     message: '获取商户信息失败！',

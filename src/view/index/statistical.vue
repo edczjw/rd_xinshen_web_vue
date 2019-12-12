@@ -211,7 +211,9 @@ export default {
                 this.count = res.data.total;
                 this.form.currentPage = res.data.currentPage;
                 this.form.pageSize = res.data.pageSize;
-            } else {
+            }else if(res.code == '1006'){
+                    this.tableData = []
+                } else {
                 this.$notify({
                 title: '提示',
                 message: res.msg+'，查询数据异常',
