@@ -285,9 +285,6 @@ export default {
     mounted() {
         //初始加载
         this.load(this.form)
-
-        //获取操作人员列表
-        this.getoperatorlist();
     },
     methods: {
         //查询
@@ -304,7 +301,6 @@ export default {
 
         //加载
         load(data){
-            this.form.operator = sessionStorage.getItem('operator')
             this.$axios({
                 method: "post",
                 url: "/workBench/listCase",
@@ -416,6 +412,9 @@ export default {
             }else{
                 //显示弹框
                 this.dialogFormVisible=true;
+
+                //获取操作人员列表
+                this.getoperatorlist();
             }
         },
 

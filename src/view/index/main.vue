@@ -129,7 +129,6 @@ export default {
                 if (res.code == '0000') {
                         this.time = res.data.loginTime
                         this.username = res.data.userName
-                        sessionStorage.setItem('operator',this.username)
                     }else{
                     
                     }

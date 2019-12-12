@@ -199,7 +199,6 @@ export default {
 
         //加载
         load(data){
-                this.form.operator = sessionStorage.getItem('operator')
             this.$axios({
             method: "post",
             url: "/workBench/listCase",
