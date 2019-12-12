@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  API_ROOT:'"https://test.xs.msxiaodai.com/"'
+  API_ROOT:'"http://test.xs.msxiaodai.com/"'
 }
