@@ -145,7 +145,11 @@ export default {
                 response => {
                 var res = response.data;
                 if (res.code == '0000') {
+                        if(res.data[0] == '2'){
                         this.showworkstage = false
+                        }else{
+                        this.showworkstage = true
+                        }
                     }else{
                         
                     }
