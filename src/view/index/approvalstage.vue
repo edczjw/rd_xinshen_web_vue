@@ -260,6 +260,7 @@ export default {
                 message: res.msg+'，查询数据异常',
                 type: 'warning'
                 });
+                this.tableData = []
             }
             },
             error => {}

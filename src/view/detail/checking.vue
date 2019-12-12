@@ -12,12 +12,12 @@
                     <div class="top-left">
                         <div class="hd-img">
                             <img src="../../assets/images/344.jpg" alt="">
-                        <span>操作人：</span>
+                        <span>操作人：{{username}}</span>
                         </div>
                     </div>
                     <div class="top-right">
-                        <span class="r-time">登录时间：2019.10.30 12:35:40</span>
-                        <div class="r-button">
+                        <span class="r-time">登录时间：{{time}}</span>
+                        <div class="r-button"  @click="logout">
                             <i class="el-icon-switch-button"></i>退出
                         </div>
                     </div>
@@ -405,6 +405,8 @@
 export default {
     data(){
         return{
+            time:'',
+            username:'',
             dialogshangchuanVisible:false,//上传照片弹框
             dialoghechaVisible:false,//核查情况弹框显示
             videoFlag1: false, //进度条
@@ -550,6 +552,7 @@ export default {
 
     },
     mounted() {
+        this.gettime();
         this.getbaseinfo();//获取申请人信息
         this.getcontractinfo();//获取联系人信息
         this.getimglist();//获取影像信息
@@ -557,6 +560,41 @@ export default {
         this.getmchinfo();//获取商户信息
     },
     methods: {
+        
+        //登出
+        logout(){
+            this.$confirm('确定退出登录？', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        showCancelButton:false,
+                        type: 'warning'
+                        }).then(() => {
+                        //确定
+                        var url = 'http://dev.user.msxiaodai.com/logout'; 
+                        window.location.href = url
+                            
+                        }).catch(() => {
+                            //取消    
+                        });
+        },
+        //获取登陆时间
+        gettime(){
+            this.$axios({
+                method: "get",
+                url: "/bus/loginInfo",
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                        this.time = res.data.loginTime
+                        this.username = res.data.userName
+                    }else{
+                    
+                    }
+                },
+                error => {}
+            );
+        },
             //上传其他照片
             Upload1(file) {
 
@@ -593,7 +631,7 @@ export default {
                 //后缀名
                 const suffix = fileName.substr(fileName.indexOf("."));
 
-                const storeAs = "dev/msxs/" + this.$route.query.applyNo +"/" +
+                const storeAs = "test/msxs/" + this.$route.query.applyNo +"/" +
                     obj + "-" + obj2 + "-" + fileName;
                 //上传
                 client.multipartUpload(storeAs, file.file, {

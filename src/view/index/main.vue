@@ -12,12 +12,12 @@
                     <div class="top-left">
                         <div class="hd-img">
                             <img src="../../assets/images/344.jpg" alt="">
-                        <span>操作人：</span>
+                        <span>操作人：{{username}}</span>
                         </div>
                     </div>
                     <div class="top-right">
-                        <span class="r-time">登录时间：2019.10.30 12:35:40</span>
-                        <div class="r-button">
+                        <span class="r-time">登录时间：{{time}}</span>
+                        <div class="r-button" @click="logout">
                             <i class="el-icon-switch-button"></i>退出
                         </div>
                     </div>
@@ -102,6 +102,10 @@ export default {
             showinputdialog:false,
             activeName: '0',
             showinput:true,//显示导入按钮
+
+            time:'',
+            username:'',
+            role:'',
         }
     },
     components:{
@@ -109,7 +113,84 @@ export default {
         'approvalstage':approvalstage,
         'statistical':statistical
     },
+    mounted() {
+        this.gettime();
+    },
     methods: {
+        //获取登陆时间
+        gettime(){
+            this.$axios({
+                method: "get",
+                url: "/bus/loginInfo",
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                        this.time = res.data.loginTime
+                        this.username = res.data.userName
+                    }else{
+                    
+                    }
+                },
+                error => {}
+            );
+        },
+
+        //获取用户角色
+        getrole(){
+            this.$axios({
+                method: "get",
+                url: "/bus/roleList",
+                data: msgForm,
+                headers: { 'Content-Type': 'multipart/form-data' }
+            }).then(
+                response => {
+                var res = response.data;
+                if (res.code == '0000') {
+                    this.$confirm('文件导入成功', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        showCancelButton:false,
+                        type: 'success'
+                        }).then(() => {
+                            //确定
+                            
+                        }).catch(() => {
+                            //取消    
+                        });
+                    }else{
+                    this.$confirm('文件导入失败，请重新导入', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        showCancelButton:false,
+                        type: 'warning'
+                        }).then(() => {
+                            //确定
+                        }).catch(() => {
+                            //取消    
+                        });
+                    }
+                },
+                error => {}
+            );
+        },
+        //登出
+        logout(){
+            this.$confirm('确定退出登录？', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        showCancelButton:false,
+                        type: 'warning'
+                        }).then(() => {
+                        //确定
+                        var url = 'http://dev.user.msxiaodai.com/logout'; 
+                        window.location.href = url
+                            
+                        }).catch(() => {
+                            //取消    
+                        });
+        },
+
         //上传
         upload(e){
             var that = this;
