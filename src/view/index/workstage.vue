@@ -294,7 +294,6 @@ export default {
         search(formName){
             // this.$refs[formName].validate((valid) => {
             // if (valid) {
-                this.form.operator = sessionStorage.getItem('operator')
                 this.load(this.form);
             //     } else {
             //     console.log('error submit!!');
@@ -305,6 +304,7 @@ export default {
 
         //加载
         load(data){
+            this.form.operator = sessionStorage.getItem('operator')
             this.$axios({
                 method: "post",
                 url: "/workBench/listCase",
