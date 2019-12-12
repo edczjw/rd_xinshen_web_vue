@@ -233,6 +233,7 @@ export default {
         search(formName){
             this.$refs[formName].validate((valid) => {
             if (valid) {
+                this.form.operator = sessionStorage.getItem('operator')
                 this.load(this.form);
                 } else {
                 console.log('error submit!!');
