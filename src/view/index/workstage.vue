@@ -153,6 +153,7 @@
                         </template>
                     </el-table-column>
                     <el-table-column prop="applyTime" label="申请时间" align="center"></el-table-column>
+                    <el-table-column v-if="false" prop="assigned" label="处理状态" align="center"></el-table-column>
                     <el-table-column prop="recordTime" label="流入时间" align="center" ></el-table-column>
                     <el-table-column v-if="false" prop="sysCode" label="系统编码" align="center" ></el-table-column>
                 </el-table>
@@ -443,7 +444,7 @@ export default {
             var that = this
             //循环
             val.forEach((data)=>{
-                if(data.operator != ''){
+                if(data.assigned != 0 ){
                     this.$confirm('此案件处理人已分配，请勿重复分配。', '提示', {
                     confirmButtonText: '确定',
                     showCancelButton:false,
