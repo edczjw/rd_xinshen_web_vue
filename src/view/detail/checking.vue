@@ -570,7 +570,7 @@ export default {
                         type: 'warning'
                         }).then(() => {
                         //确定
-                        var url = 'http://dev.user.msxiaodai.com/logout'; 
+                        var url = 'http://test.user.msxiaodai.com/logout'; 
                         window.location.href = url
                             
                         }).catch(() => {
