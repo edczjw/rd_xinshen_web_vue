@@ -115,6 +115,7 @@ export default {
     },
     mounted() {
         this.gettime();//获取登陆时间
+        this.getrole();//获取角色
     },
     methods: {
         //获取登陆时间
