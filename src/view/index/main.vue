@@ -273,7 +273,6 @@ export default {
     // 头部
     .main-top-tips{
         position: absolute;
-        
         left: calc(50% - 569px);
         width: 1138px;
         border-bottom: 1px solid #6189ff;

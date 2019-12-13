@@ -83,7 +83,7 @@
                 <el-table
                     :data="tableData"
                     border
-                    size="mini"
+                    size="medium"
                     stripe
                     element-loading-text="拼命加载中"
                     element-loading-spinner="el-icon-loading"

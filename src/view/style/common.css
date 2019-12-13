@@ -90,11 +90,7 @@
 td {
   color: #515a6e;
   height: 46px;
-}
-.el-table--mini,
-.el-table--small,
-.el-table__expand-icon {
-  font-size: 14px;
+  font-size: 14px !important;
 }
 .el-dialog {
   border-radius: 15px !important;

@@ -102,7 +102,7 @@
                     :data="tableData"
                     ref="multipleTable"
                     border
-                    size="mini"
+                    size="medium"
                     stripe
                     element-loading-text="拼命加载中"
                     element-loading-spinner="el-icon-loading"
@@ -187,7 +187,7 @@
                             <el-option v-for="item in options2"
                             :key="item.index"
                             :label="item.rname"
-                            :value="item.uname"></el-option>
+                            :value="item.rname"></el-option>
                             </el-select>
                     </el-form-item>
                 </div>
@@ -367,12 +367,12 @@ export default {
         //确定分配派单
         takesure(){
             var applyNos = this.multipleSelection
-            var uname = this.operator
+            var rname = this.operator
             let data = {
                 applyNos:applyNos,
-                uname:uname
+                rname:rname
             }
-            if(uname == '' || uname == null){
+            if(rname == '' || rname == null){
                 this.$message({
                     message: '请选择操作人员，谢谢合作。',
                     type: "error"
