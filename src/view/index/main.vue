@@ -35,7 +35,7 @@
                             <el-tab-pane  label="工作台" v-if="showworkstage"><span slot="label">
                                 <svg class="icon" aria-hidden="true">
                                 <use xlink:href="#icon-ziyuan-copy" />
-                            </svg>工作台</span>
+                            </svg  v-if="sonRefresh1">工作台</span>
                             <!-- 引入工作台子组件 -->
                             <workstage></workstage>
                             </el-tab-pane>
@@ -51,7 +51,7 @@
                                 <use xlink:href="#icon-tongji1-copy" />
                             </svg>统计</span>
                             <!-- 引入统计子组件 -->
-                            <statistical></statistical>
+                            <statistical  v-if="sonRefresh2"></statistical>
                             </el-tab-pane>
                         </el-tabs>
                     </div>
@@ -62,10 +62,10 @@
 
          <!-- 导入表格弹框 -->
         <el-dialog append-to-body  top='30vh' width='40%'  :visible.sync="dialogFormVisible">
-            <span slot="title" class="dialog-title">
+            <div style="width:100%;text-align:center;padding:20px 0;font-size:18px;">
             <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-biaoge3" />
-            </svg>上传EXCEL表格</span>
+            <use xlink:href="#icon-Icon-wenjianleixing-Excel" />
+            </svg>上传excel表格</span></div>
             <div style="width:100%;text-align:center;height:100%;line-height:40px">
             <el-upload name="excel" 
             accept=".xlsx, .xls, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
@@ -96,6 +96,8 @@ export default {
     data(){
         return{
             sonRefresh:true,//显示审批台
+            sonRefresh1:true,//显示工作台
+            sonRefresh2:true,//显示统计台
             filelist:[],//文件列表
             showworkstage:true,//显示工作台
             dialogFormVisible: false,
@@ -197,13 +199,19 @@ export default {
                 response => {
                 var res = response.data;
                 if (res.code == '0000') {
-                    this.$confirm('文件导入成功', '提示', {
+                    this.$confirm('文件导入成功！'+'导入总数：'+res.data.totalNum+'，其中成功数：'+res.data.successNum+'！', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         showCancelButton:false,
                         type: 'success'
                         }).then(() => {
                             //确定
+                            this.sonRefresh1 = false;
+                            this.sonRefresh = false;
+                            this.$nextTick(() => {
+                                this.sonRefresh1 = true;
+                                this.sonRefresh = true;
+                            });
                             
                         }).catch(() => {
                             //取消    
@@ -412,4 +420,7 @@ export default {
     }
 
 }
+    .el-upload-dragger{
+        width: 520px;
+    }
 </style>

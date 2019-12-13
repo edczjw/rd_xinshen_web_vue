@@ -50,17 +50,17 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:256px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="12">姓名：{{data.name}}</el-col>
+                                            <el-col :span="13">姓名：{{data.name}}</el-col>
                                             
                                             <el-col :span="6">注册手机号：{{data.registMobile}}</el-col>
-                                            <el-col :span="6">
+                                            <el-col :span="5">
                                                 <div class="ckrow-button" @click="dianhe(data.registMobile)">电核情况</div>
                                             </el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="12">身份证：{{data.idCard}}</el-col>
+                                            <el-col :span="13">身份证：{{data.idCard}}</el-col>
                                             <el-col :span="6">申请手机号：{{data.applyMobile}}</el-col>
-                                            <el-col :span="6">
+                                            <el-col :span="5">
                                                 <div class="ckrow-button" @click="dianhe(data.applyMobile)">电核情况</div>
                                             </el-col>
                                         </el-row>
@@ -75,19 +75,19 @@
                                                     <span v-else>女</span>
                                                 </span>   
                                             </el-col>
-                                            <el-col :span="4">   
+                                            <el-col :span="5">   
                                                 <span>年龄：{{data.age}}</span>
                                             </el-col>
                                             <el-col :span="6">银行预留手机号：{{data.bankMobile}}</el-col>
-                                            <el-col :span="6">
+                                            <el-col :span="5">
                                                 <div class="ckrow-button" @click="dianhe(data.bankMobile)">电核情况</div>
                                             </el-col>
                                         </el-row>
 
                                         <el-row class="ck-row">
-                                            <el-col :span="12">工作单位：{{data.company}}</el-col>
+                                            <el-col :span="13">工作单位：{{data.company}}</el-col>
                                             <el-col :span="6">其他手机号：{{data.othMobile}}</el-col>
-                                            <el-col :span="6">
+                                            <el-col :span="5">
                                                 <div class="ckrow-button" @click="dianhe(data.othMobile)">电核情况</div>
                                             </el-col>
                                         </el-row>
@@ -106,30 +106,33 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:100%;">
                                         <el-row class="ck-row">
-                                            <el-col :span="6" class="go-center">
+                                            <el-col :span="8" class="go-center">
                                                 <!-- <img src="../../assets/images/idup.png" alt=""> -->
                                                 <div class="go-img">
-                                                <img :src="this.imgfront" alt="">
+                                                    <img v-if="this.imgfront == null? false:true" src="../../assets/images/front.png" alt="">
+                                                    <img v-else :src="this.imgfront" alt="">
                                                 </div>
                                                 <div class="nk-ok">
                                                     <div class="df">身份证正面</div>
                                                     <div class="ckrow-buttons" @click="hecha(1)">核查情况</div>
                                                 </div>
                                             </el-col>
-                                            <el-col :span="6"  class="go-center">
+                                            <el-col :span="8"  class="go-center">
                                                 <!-- <img src="../../assets/images/iddown.png" alt=""> -->
                                                 <div class="go-img">
-                                                <img :src="this.imgfront" alt="">
+                                                    <img v-if="this.imgback == null? false:true" src="../../assets/images/back.png" alt="">
+                                                    <img  v-else :src="this.imgback" alt="">
                                                 </div>
                                                 <div class="nk-ok">
                                                     <div class="df">身份证反面</div>
                                                     <div class="ckrow-buttons" @click="hecha(2)">核查情况</div>
                                                 </div>
                                             </el-col>
-                                            <el-col :span="6" class="go-center">
+                                            <el-col :span="8" class="go-center">
                                                 <!-- <img src="../../assets/images/timg.gif" alt=""> -->
                                                 <div class="re-img ">
-                                                <img :src="this.imgfront" alt="">
+                                                     <img v-if="this.huoti == ''? false:true" src="" alt="">
+                                                    <img v-else  :src="this.huoti" alt="">
                                                 </div>
                                                 <div class="nk-oks">
                                                     <div class="df">活体截图</div>
@@ -138,8 +141,10 @@
                                             </el-col>
                                             
                                             <div v-for="item in other" :key="item.index">
-                                            <el-col :span="6" class="re-img go-center" >
+                                            <el-col :span="8" class="go-center" >
+                                                <div :class="item.imageTypeDesc == '身份证正面' || item.imageTypeDesc == '身份证反面'? 'go-img':'re-img' ">
                                                 <img :src="item.imageUrl" alt="">
+                                                </div>
                                                 <div  class="nk-oks2">
                                                     {{item.imageTypeDesc}}(补件)
                                                 </div>
@@ -156,16 +161,16 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:146px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="12">姓名：{{contractdata.contactsName}}</el-col>
-                                            <el-col :span="12">姓名：{{contractdata.otherContactsName}}</el-col>
+                                            <el-col :span="13">姓名：{{contractdata.contactsName}}</el-col>
+                                            <el-col :span="11">姓名：{{contractdata.otherContactsName}}</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="12">关系：
+                                            <el-col :span="13">关系：
                                                 <span v-if="contractdata.contactsRelation == 0">配偶</span>
                                                 <span v-else-if="contractdata.contactsRelation == 1">父母</span>
                                                 <span v-else="contractdata.contactsRelation == 2">子女</span>
                                             </el-col>
-                                            <el-col :span="12">关系：
+                                            <el-col :span="11">关系：
                                                 <span v-if="contractdata.otherContactsRelation == 0">亲属</span>
                                                 <span v-else-if="contractdata.otherContactsRelation == 1">朋友</span>
                                                 <span v-else-if="contractdata.otherContactsRelation == 2">同事</span>
@@ -176,13 +181,13 @@
                                             <el-col :span="6">
                                                 电话：{{contractdata.contactsPhone}}
                                             </el-col>
-                                            <el-col :span="6">
+                                            <el-col :span="7">
                                                 <div class="ckrow-button" @click="dianhe(contractdata.contactsPhone)">电核情况</div>
                                             </el-col>
                                             <el-col :span="6">
                                                 电话：{{contractdata.otherContactsPhone}}
                                             </el-col>
-                                            <el-col :span="6">
+                                            <el-col :span="5">
                                                 <div class="ckrow-button" @click="dianhe(contractdata.otherContactsPhone)">电核情况</div>
                                             </el-col>
                                         </el-row>
@@ -196,13 +201,13 @@
                                 <div class="ck-pag">
                                     <div class="ck-table" style="height:146px;">
                                         <el-row class="ck-row">
-                                            <el-col :span="12">借款金额：{{loaninfo.loanAmount}}</el-col>
-                                            <el-col :span="12">订单金额：{{loaninfo.orderAmount}}</el-col>
+                                            <el-col :span="10">借款金额：{{loaninfo.loanAmount}}</el-col>
+                                            <el-col :span="14">订单金额：{{loaninfo.orderAmount}}</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="12">借款期限：{{loaninfo.term}}</el-col>
-                                            <el-col :span="6">还款方式：{{loaninfo.loanType}}</el-col>
-                                            <el-col :span="6">
+                                            <el-col :span="10">借款期限：{{loaninfo.term}}</el-col>
+                                            <el-col :span="10">还款方式：{{loaninfo.loanType}}</el-col>
+                                            <el-col :span="4">
                                                 <div class="ckrow-button"    @click="getrepayplan">详细还款计划</div>
                                             </el-col>
                                         </el-row>
@@ -230,13 +235,13 @@
                                             <el-col>商户地址：{{mchinfo.mchAddress}}</el-col>
                                         </el-row>
                                         <el-row class="ck-row">
-                                            <el-col :span="12">
+                                            <el-col :span="13">
                                                 商户联系人：{{mchinfo.mchContact}}
                                             </el-col>
                                             <el-col :span="6">
                                                 联系电话：{{mchinfo.mobile}}
                                             </el-col>
-                                            <el-col :span="6">
+                                            <el-col :span="5">
                                                 <div class="ckrow-button" @click="dianhe(mchinfo.mobile)">电核情况</div>
                                             </el-col>
                                         </el-row>

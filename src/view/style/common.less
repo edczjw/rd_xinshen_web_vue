@@ -154,9 +154,10 @@ td{
     border-radius: 8px;
     margin: 0 auto;
     padding-bottom: 30px;
+    // padding: 30px;
     .ck-tit{
         width: 140px;
-        padding: 26px;
+        padding: 30px;
         height: 20px;
         font-size: 20px;
         font-weight: normal;
@@ -166,7 +167,7 @@ td{
         color: #252e47;
     }
     .ck-pag{
-        width: 1138px;
+        width: 1108px;
         height: 195px;
         line-height: 100%;
         background-color: #f7f7f7;
@@ -200,7 +201,7 @@ td{
                 }
                 .ckrow-button{
                     width: 112px;
-                    height: 39px;
+                    height: 34px;
                     cursor: pointer;
                     font-size: 14px;
                     text-align: center;
@@ -208,7 +209,7 @@ td{
                     border-width: 1px;
                     border-radius: 4px;
                     border-image-slice: 1;
-                    line-height: 39px;
+                    line-height: 34px;
                     letter-spacing: 0px;
                     color: #2c74f3;
                 }
@@ -221,8 +222,8 @@ td{
                         justify-content:center;
                         margin-bottom: 15px;
                         img{
-                            width: 241px;
-	                        height: 148px;
+                            width: 280px;
+	                        height: 177px;
                             background-color: #252e47;
                         }
                     }
@@ -246,12 +247,19 @@ td{
                     }
                 }
                 .re-img{
-                    text-align: center;
+                    display:flex;
+                    align-items:center; 
+                    justify-content:center;
+                    margin-bottom: 15px;
                      img{
                         width: 218px;
                         height: 257px;
                         background-color: #252e47;
                     }
+                }
+                .re-img1{
+                        width: 218px;
+                        height: 257px;
                 }
                 //身份证正反面
                 .nk-ok{
@@ -259,6 +267,7 @@ td{
                     margin: 0 auto;
                     height: 39px;
                     line-height: 39px;
+                    width: 280px;
                     .df{
                         flex: 1;
                         height: 39px;
@@ -268,7 +277,8 @@ td{
                     }
                     .df-s{
                         flex: 1;
-                        height: 39px;
+                        height: 34px;
+                        width: 218px;
                         text-align: left;
                         .el-select{
                             width: 123px;
@@ -276,21 +286,38 @@ td{
                         span {
                             margin-right: 0px !important; 
                         }
+                        .btp{
+                            width: 123px;
+                            height: 34px;
+                            cursor: pointer;
+                            text-align: center;
+                            line-height: 34px;
+                            background-color: #ffffff;
+                            border-radius: 4px;
+                            border: solid 1px #2670f3;
+                            font-family: PingFangSC-Regular;
+                            font-size: 14px;
+                            font-weight: normal;
+                            font-stretch: normal;
+                            letter-spacing: 0px;
+                            color: #2670f3;
+                        }
                     }
                     .ckrow-buttons{
-                        margin-right: 30px;
-                        width: 112px;
-                        height: 38px;
+                        width: 123px;
+                        height: 34px;
                         cursor: pointer;
-                        font-size: 14px;
                         text-align: center;
-                        border-style: solid;
-                        border-width: 1px;
+                        line-height: 34px;
+                        background-color: #ffffff;
                         border-radius: 4px;
-                        border-image-slice: 1;
-                        line-height: 38px;
+                        border: solid 1px #2670f3;
+                        font-family: PingFangSC-Regular;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
                         letter-spacing: 0px;
-                        color: #2c74f3;
+                        color: #2670f3;
                     }
                 }
 
@@ -318,28 +345,46 @@ td{
                         span {
                             margin-right: 0px !important; 
                         }
+                        .btp{
+                            width: 123px;
+                            cursor: pointer;
+                            height: 34px;
+                            text-align: center;
+                            line-height: 34px;
+                            background-color: #ffffff;
+                            border-radius: 4px;
+                            border: solid 1px #2670f3;
+                            font-family: PingFangSC-Regular;
+                            font-size: 14px;
+                            font-weight: normal;
+                            font-stretch: normal;
+                            letter-spacing: 0px;
+                            color: #2670f3;
+                        }
                     }
                     
                     .ckrow-buttons{
-                        width: 112px;
-                        height: 38px;
+                        width: 123px;
+                        height: 34px;
                         cursor: pointer;
-                        font-size: 14px;
                         text-align: center;
-                        border-style: solid;
-                        border-width: 1px;
+                        line-height: 34px;
+                        background-color: #ffffff;
                         border-radius: 4px;
-                        border-image-slice: 1;
-                        line-height: 38px;
+                        border: solid 1px #2670f3;
+                        font-family: PingFangSC-Regular;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
                         letter-spacing: 0px;
-                        color: #2c74f3;
+                        color: #2670f3;
                     }
                 }
 
                 .nk-oks2{
                     margin: 0 auto;
                     height: 39px;
-                    width: 218px;
+                    // width: 218px;
                     line-height: 39px;
                     margin-bottom: 15px;
                 }
@@ -411,26 +456,16 @@ td{
     transition: color .25s;
     position: relative;
     cursor: pointer;
-}
-.add::before{
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 80px;
-    margin-left: -40px;
-    margin-top: -5px;
-    border-top: 10px solid;
-}  
-.add::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    height: 80px;
-    margin-left: -5px;
-    margin-top: -40px;
-    border-left: 10px solid;
+    position: relative;
+    text-align: center;
+    img{
+        width: 45px;
+        height: 39px;
+        margin-top: 40%;
+    }
+    .ioi{
+        margin-top: -25px;
+    }
 }
 
 .add:hover {
