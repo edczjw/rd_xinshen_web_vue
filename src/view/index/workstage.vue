@@ -112,15 +112,16 @@
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" label="选择" align="center" width="55"></el-table-column>
-                    <el-table-column prop="applyNo" label="申请流水" align="center" width="105"></el-table-column>
-                    <el-table-column prop="productCode" label="产品/项目" align="center" width="95"></el-table-column>
-                    <el-table-column prop="name" label="姓名" align="center" width="80">
+                    <el-table-column prop="applyNo" label="申请流水" align="center" width="105">
                         <template slot-scope="scope">
                             <a style="color:#409EFF !important;cursor: pointer;"
                             @click="godetail(scope.row.applyNo,scope.row.checked,scope.row.productCode,scope.row.sysCode)">
-                                {{scope.row.name}}
+                                {{scope.row.applyNo}}
                                 </a>
                         </template>
+                    </el-table-column>
+                    <el-table-column prop="productCode" label="产品/项目" align="center" width="95"></el-table-column>
+                    <el-table-column prop="name" label="姓名" align="center" width="80">
                     </el-table-column>
                     <el-table-column prop="idCard" label="身份证号码" align="center" width="105"></el-table-column>
                     <el-table-column prop="mobile" label="手机号码" align="center"></el-table-column>
