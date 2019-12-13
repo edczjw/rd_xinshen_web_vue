@@ -1,8 +1,9 @@
 .bk {
-  width: 1300px;
+  width: 1130px;
   min-height: 740px;
   background-color: #ffffff;
-  box-shadow: 0px 0px 14px 2px rgba(73, 119, 252, 0.29);
+  -webkit-box-shadow: 0 0 12px 1px rgba(73, 119, 252, 0.29);
+  box-shadow: 0px 0px 12px 1px rgba(73, 119, 252, 0.29);
   border-radius: 8px;
   margin: 11px auto;
   padding: 12px 0;
@@ -67,7 +68,7 @@
   margin-bottom: 0px !important;
 }
 .bk .bk-table {
-  width: 1245px;
+  width: 1115px;
   margin: 0 auto;
   margin-top: 80px;
 }
@@ -75,7 +76,7 @@
   margin: 20px auto;
 }
 .bk .el-form-item .el-input__inner {
-  width: 272px;
+  width: 242px;
 }
 .el-table--border th {
   background-color: #ebf7ff !important;
@@ -89,6 +90,11 @@
 td {
   color: #515a6e;
   height: 46px;
+}
+.el-table--mini,
+.el-table--small,
+.el-table__expand-icon {
+  font-size: 14px;
 }
 .el-dialog {
   border-radius: 15px !important;
@@ -121,7 +127,7 @@ td {
   height: 240px !important;
 }
 .checking-box {
-  width: 1300px;
+  width: 1170px;
   min-height: 1950px;
   background-color: #ffffff;
   box-shadow: 0px 0px 14px 2px rgba(73, 119, 252, 0.29);
@@ -141,7 +147,7 @@ td {
   color: #252e47;
 }
 .checking-box .ck-pag {
-  width: 1248px;
+  width: 1138px;
   height: 195px;
   line-height: 100%;
   background-color: #f7f7f7;
@@ -195,8 +201,8 @@ td {
   margin-bottom: 15px;
 }
 .checking-box .ck-pag .ck-table .ck-row .go-center .go-img img {
-  width: 281px;
-  height: 178px;
+  width: 241px;
+  height: 148px;
   background-color: #252e47;
 }
 .checking-box .ck-pag .ck-table .ck-row .go-center .el-upload-dragger {
@@ -221,7 +227,7 @@ td {
 }
 .checking-box .ck-pag .ck-table .ck-row .re-img img {
   width: 218px;
-  height: 267px;
+  height: 257px;
   background-color: #252e47;
 }
 .checking-box .ck-pag .ck-table .ck-row .nk-ok {
@@ -361,8 +367,8 @@ td {
 .add {
   border: 1px solid;
   margin: 0 auto;
-  width: 218px;
-  height: 267px;
+  width: 208px;
+  height: 250px;
   color: #ccc;
   transition: color 0.25s;
   position: relative;

@@ -1137,7 +1137,7 @@ export default {
 .main-banxin{
     font-family: PingFangSC-Regular, sans-serif;
     position: relative;
-    width: 1305px;
+    width: 1230px;
     height: 0;
     padding-bottom: 70%;
     margin: 0 auto;
@@ -1149,7 +1149,8 @@ export default {
         border-bottom: 1px solid #6189ff;
         padding-bottom: 2%;
         top: 1%;
-        width: 100%;
+        left: calc(50% - 569px);
+        width: 1138px;
         display: flex;
         .top-left{
             flex: 1;
@@ -1209,7 +1210,8 @@ export default {
     .main-middle{
         position: absolute;
         top: 150px;
-        width: 100%;
+        left: calc(50% - 569px);
+        width: 1138px;
         min-height: 740px;
         .main-tab{
             .bititle{

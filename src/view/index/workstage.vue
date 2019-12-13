@@ -55,7 +55,6 @@
                             <el-input v-model.trim="form.mobile"
                             clearable 
                             maxlength="11"
-                            show-word-limit 
                              ></el-input>
                 </el-form-item>
                     </el-col>
@@ -113,20 +112,20 @@
                     @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" label="选择" align="center" width="55"></el-table-column>
-                    <el-table-column prop="applyNo" label="申请流水" align="center" width="125"></el-table-column>
-                    <el-table-column prop="productCode" label="产品/项目" align="center" width="105"></el-table-column>
-                    <el-table-column prop="name" label="姓名" align="center" width="85">
+                    <el-table-column prop="applyNo" label="申请流水" align="center" width="105"></el-table-column>
+                    <el-table-column prop="productCode" label="产品/项目" align="center" width="95"></el-table-column>
+                    <el-table-column prop="name" label="姓名" align="center" width="80">
                         <template slot-scope="scope">
-                            <el-button  type="text" size="small" 
+                            <a style="color:#409EFF !important;cursor: pointer;"
                             @click="godetail(scope.row.applyNo,scope.row.checked,scope.row.productCode,scope.row.sysCode)">
                                 {{scope.row.name}}
-                            </el-button>
+                                </a>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="idCard" label="身份证号码" align="center" width="155"></el-table-column>
-                    <el-table-column prop="mobile" label="手机号码" align="center" width="105"></el-table-column>
-                    <el-table-column prop="creditAmount" label="授信金额" align="center" width="105"></el-table-column>
-                    <el-table-column prop="loanAmount" label="贷款金额" align="center" width="105"></el-table-column>
+                    <el-table-column prop="idCard" label="身份证号码" align="center" width="105"></el-table-column>
+                    <el-table-column prop="mobile" label="手机号码" align="center"></el-table-column>
+                    <el-table-column prop="creditAmount" label="授信金额" align="center" width="85"></el-table-column>
+                    <el-table-column prop="loanAmount" label="贷款金额" align="center" width="85"></el-table-column>
                     <el-table-column prop="term" label="期数" align="center" width="55"></el-table-column>
                     <el-table-column v-if="false" prop="checked" label="审批状态" align="center" width="145">
                         <template slot-scope="scope">
@@ -144,7 +143,7 @@
                             </span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="operator" label="处理人" align="center" width="88">
+                    <el-table-column prop="operator" label="处理人" align="center" width="80">
                         <template slot-scope="scope">
                             <span  v-if="scope.row.operator =='待处理'">
                             {{scope.row.operator}}
@@ -187,7 +186,7 @@
                             v-model.trim="operator" placeholder="请选择操作人员">
                             <el-option v-for="item in options2"
                             :key="item.index"
-                            :label="item.uname"
+                            :label="item.rname"
                             :value="item.uname"></el-option>
                             </el-select>
                     </el-form-item>
@@ -314,7 +313,16 @@ export default {
                     this.form.currentPage = res.data.currentPage;
                     this.form.pageSize = res.data.pageSize;
                 }else if(res.code == '1006'){
+                    this.$notify({
+                    title: '提示',
+                    message: '数据查询为空',
+                    type: 'warning'
+                    });
                     this.tableData = []
+                    this.count = 0;
+                    this.form.currentPage = 1;
+                    this.form.pageSize = 10;
+                    
                 } else {
                     this.$notify({
                     title: '提示',
@@ -322,6 +330,9 @@ export default {
                     type: 'warning'
                     });
                     this.tableData = []
+                    this.count = 0;
+                    this.form.currentPage = 1;
+                    this.form.pageSize = 10;
                 }
                 },
                 error => {}

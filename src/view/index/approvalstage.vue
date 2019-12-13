@@ -50,7 +50,6 @@
                             <el-input v-model.trim="form.mobile"
                             clearable 
                             maxlength="11"
-                            show-word-limit 
                             auto-complete="true"></el-input>
                 </el-form-item>
                     </el-col>
@@ -102,17 +101,17 @@
                     highlight-current-row
                 >
                     <el-table-column type="index" label="序号" align="center" width="55"></el-table-column>
-                    <el-table-column prop="applyNo" label="申请流水" align="center" width="145"></el-table-column>
+                    <el-table-column prop="applyNo" label="申请流水" align="center" width="105"></el-table-column>
                     <el-table-column prop="productCode" label="三方用户号" align="center" width="105"></el-table-column>
-                    <el-table-column prop="name"  label="姓名" align="center" width="85">
+                    <el-table-column prop="name"  label="姓名" align="center" width="80">
                         <template slot-scope="scope">
-                            <el-button  type="text" size="small" 
+                            <a style="color:#409EFF !important;cursor: pointer;"
                             @click="godetail(scope.row.applyNo,scope.row.checked,scope.row.productCode,scope.row.sysCode)">
                                 {{scope.row.name}}
-                            </el-button>
+                                </a>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="idCard"  label="身份证号码" align="center" width="155"></el-table-column>
+                    <el-table-column prop="idCard"  label="身份证号码" align="center" width="105"></el-table-column>
                     <el-table-column v-if="false" prop="checked" label="审批状态" align="center" width="145">
                         <template slot-scope="scope">
                             <span  v-if="scope.row.checked == 0">
@@ -129,11 +128,11 @@
                             </span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="mobile" label="手机号码" align="center" width="105"></el-table-column>
-                    <el-table-column prop="creditAmount" label="授信金额" align="center" width="105"></el-table-column>
-                    <el-table-column prop="loanAmount" label="贷款金额" align="center" width="105"></el-table-column>
+                    <el-table-column prop="mobile" label="手机号码" align="center"></el-table-column>
+                    <el-table-column prop="creditAmount" label="授信金额" align="center" width="85"></el-table-column>
+                    <el-table-column prop="loanAmount" label="贷款金额" align="center" width="85"></el-table-column>
                     <el-table-column prop="term" label="期数" align="center" width="55"></el-table-column>
-                    <el-table-column prop="operator" label="处理人" align="center" width="88"></el-table-column>
+                    <el-table-column prop="operator" label="处理人" align="center" width="80"></el-table-column>
                     <el-table-column prop="applyTime" label="申请时间" align="center" width="120"></el-table-column>
                     <el-table-column prop="recordTime" label="流入时间" align="center" width="120"></el-table-column>
                     <el-table-column v-if="false" prop="sysCode" label="系统编号" align="center" width="120"></el-table-column>
@@ -255,7 +254,15 @@ export default {
                 this.form.currentPage = res.data.currentPage;
                 this.form.pageSize = res.data.pageSize;
             }else if(res.code == '1006'){
+                this.$notify({
+                    title: '提示',
+                    message: '数据查询为空',
+                    type: 'warning'
+                    });
                     this.tableData = []
+                    this.count = 0;
+                    this.form.currentPage = 1;
+                    this.form.pageSize = 10;
                 } else {
                 this.$notify({
                 title: '提示',
@@ -263,6 +270,9 @@ export default {
                 type: 'warning'
                 });
                 this.tableData = []
+                this.count = 0;
+                this.form.currentPage = 1;
+                this.form.pageSize = 10;
             }
             },
             error => {}

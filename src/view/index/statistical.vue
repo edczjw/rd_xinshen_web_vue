@@ -91,18 +91,18 @@
                     style="width:100%; height:100%;"
                 >
                     <el-table-column prop="utime" label="处理日" align="center"></el-table-column>
-                    <el-table-column prop="applyNo" label="申请流水号" align="center" width="145">
+                    <el-table-column prop="applyNo" label="申请流水号" width="110" align="center">
                         <template slot-scope="scope">
-                            <el-button  type="text" size="small" 
+                            <a style="color:#409EFF !important;cursor: pointer;"
                             @click="godetail(scope.row.applyNo,scope.row.checked,scope.row.productCode,scope.row.sysCode,)">
                                 {{scope.row.applyNo}}
-                            </el-button>
+                            </a>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="productCode" label="产品/项目" align="center" width="145"></el-table-column>
-                    <el-table-column prop="creditAmount" label="授信金额" align="center" width="145"></el-table-column>
-                    <el-table-column prop="loanAmount" label="贷款金额" align="center" width="145"></el-table-column>
-                    <el-table-column prop="checked" label="审批状态" align="center" width="145">
+                    <el-table-column prop="productCode" label="产品/项目" align="center" width="95"></el-table-column>
+                    <el-table-column prop="creditAmount" label="授信金额" align="center" width="85"></el-table-column>
+                    <el-table-column prop="loanAmount" label="贷款金额" align="center" width="85"></el-table-column>
+                    <el-table-column prop="checked" label="审批状态" align="center" width="105">
                         <template slot-scope="scope">
                             <span  v-if="scope.row.checked == 0">
                                 待处理
@@ -118,7 +118,7 @@
                             </span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="applyTime" label="申请日" align="center" width="145"></el-table-column>
+                    <el-table-column prop="applyTime" label="申请日" align="center"></el-table-column>
                     <el-table-column prop="recordTime" label="流入日" align="center"  ></el-table-column>
                     <el-table-column v-if="false" prop="sysCode" label="流入日" align="center"  ></el-table-column>
                     </el-table>
@@ -212,7 +212,15 @@ export default {
                 this.form.currentPage = res.data.currentPage;
                 this.form.pageSize = res.data.pageSize;
             }else if(res.code == '1006'){
+                this.$notify({
+                    title: '提示',
+                    message: '数据查询为空',
+                    type: 'warning'
+                    });
                     this.tableData = []
+                    this.count = 0;
+                    this.form.currentPage = 1;
+                    this.form.pageSize = 10;
                 } else {
                 this.$notify({
                 title: '提示',
@@ -220,6 +228,9 @@ export default {
                 type: 'warning'
                 });
                 this.tableData = []
+                this.count = 0;
+                this.form.currentPage = 1;
+                this.form.pageSize = 10;
             }
             },
             error => {}
@@ -307,14 +318,14 @@ export default {
         // 改变每页显示的条数
         this.form.pageSize = psize;
         // 注意：在改变每页显示的条数时，要将页码显示到第一页
-        this.form.pageIndex = 1;
-        // this.load(this.form);
+        this.form.currentPage = 1;
+        this.load(this.form);
         },
 
         // 初始页currentPage
         handleCurrentChange(pindex) {
-        this.form.pageIndex = pindex;
-        // this.load(this.form);
+        this.form.currentPage = pindex;
+        this.load(this.form);
         },
     },
 }

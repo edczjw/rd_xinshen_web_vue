@@ -264,7 +264,7 @@ export default {
 .main-banxin{
     font-family: PingFangSC-Regular, sans-serif;
     position: relative;
-    width: 1305px;
+    width: 1230px;
     height: 0;
     padding-bottom: 70%;
     margin: 0 auto;
@@ -273,16 +273,19 @@ export default {
     // 头部
     .main-top-tips{
         position: absolute;
+        
+        left: calc(50% - 569px);
+        width: 1138px;
         border-bottom: 1px solid #6189ff;
         padding-bottom: 2%;
         top: 1%;
-        width: 100%;
+        // width: 100%;
         display: flex;
         .top-left{
             flex: 1;
             .hd-img{
                 width: 100%;
-                height: 61px;
+                min-height: 61px;
                 line-height: 61px;
                 font-size: 28px;
                 font-weight: normal;
@@ -291,7 +294,7 @@ export default {
                 color: #ffffff;
                 img{
                     width: 61px;
-                    height: 61px;
+                    min-height: 61px;
                     border-radius: 50%;
                     vertical-align: middle;
                     padding: 0 10px;
@@ -336,12 +339,13 @@ export default {
     .main-middle{
         position: absolute;
         top: 150px;
-        width: 100%;
+        left: calc(50% - 569px);
+        width: 1138px;
         height: 740px;
         .main-tab{
             //改写tab样式
             .el-tabs__nav-wrap {
-                margin-bottom: 30px;
+                margin-bottom: 25px;
             }
             .el-tabs__item {
                 padding: 0 140px 0 5px;
