@@ -46,10 +46,11 @@
                                         <p>5、同盾欺诈分</p>
                                     </div>
                                 </div>
-
+                            <el-form :model="form" :rules="rules" ref="form" label-width="100px" class="demo-ruleForm">
                                 <div class="ck-se">
                                 <div class="ck-tit">审批结论</div>
                                 <div class="ck-select">
+                                    <el-form-item prop="checked">
                                     <el-select v-model="form.checked" 
                                     placeholder="请选择">
                                     <el-option v-for="item in options3"
@@ -57,19 +58,22 @@
                                     :label="item.label"
                                     :value="item.value"></el-option>
                                     </el-select>
+                                    </el-form-item>
                                 </div>
-                                <div class="ck-button" @click="subsp">
+                                <div class="ck-button" @click="subsp('form')">
                                     提交
                                 </div>
                                 </div>
                                 <div class="ck-pag">
                                     <div class="ck-table">
+                                        <el-form-item prop="checkRemark">
                                         <el-input
                                         type="textarea"
                                         :rows=6
                                         placeholder="请输入内容"
                                         v-model.trim="form.checkRemark">
                                         </el-input>
+                                        </el-form-item>
                                     </div>
                                 </div>
 
@@ -197,6 +201,7 @@
                                         </el-row>
                                     </div>
                                 </div>
+                            </el-form>
 
                                 <div class="ck-se">
                                 <div class="ck-tit">联系人信息</div>
@@ -554,7 +559,16 @@ export default {
             loaninfo:[],
 
             //商户信息
-            mchinfo:[]
+            mchinfo:[],
+
+            rules: {
+                checked: [
+                    { required: true, message: '请选择审批结论', trigger: 'change' }
+                ],
+                checkRemark: [
+                    { required: true, message: '请填写审批结论', trigger: 'blur' }
+                ]
+            }
         }
     },
     components:{
@@ -763,8 +777,8 @@ export default {
                 response => {
                 var res = response.data;
                 if (res.code == '0000') {
-                    this.hechaform.status = null;
-                    this.hechaform.remark = '';
+                    // this.hechaform.status = null;
+                    // this.hechaform.remark = '';
 
                     this.$message({
                     message: '核查情况提交成功！',
@@ -772,8 +786,8 @@ export default {
                     });
                  this.dialoghechaVisible = false
                 } else {
-                    this.hechaform.status = null;
-                    this.hechaform.remark = '';
+                    // this.hechaform.status = null;
+                    // this.hechaform.remark = '';
                     this.$message({
                     message: '核查情况提交失败！',
                     type: "error"
@@ -1030,7 +1044,9 @@ export default {
         },
 
         //提交审批结论
-        subsp(){
+        subsp(formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
             this.$confirm('此操作将提交此案件"所有的"审批信息, 是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -1073,7 +1089,11 @@ export default {
             );}).catch(() => {
             
             
-            });
+            });} else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
         },
 
         //拨打情况
