@@ -371,7 +371,7 @@ export default {
             var rname = this.operator
             let data = {
                 applyNos:applyNos,
-                rname:rname
+                uname:rname
             }
             if(rname == '' || rname == null){
                 this.$message({
