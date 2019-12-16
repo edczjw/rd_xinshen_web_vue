@@ -460,6 +460,7 @@ export default {
                     this.$confirm('此案件处理人已分配，请勿重复分配。', '提示', {
                     confirmButtonText: '确定',
                     showCancelButton:false,
+                    showClose:false,
                     type: 'warning'
                     }).then(() => {
                         //确定
