@@ -777,8 +777,8 @@ export default {
                 response => {
                 var res = response.data;
                 if (res.code == '0000') {
-                    // this.hechaform.status = null;
-                    // this.hechaform.remark = '';
+                    this.hechaform.status = null;
+                    this.hechaform.remark = '';
 
                     this.$message({
                     message: '核查情况提交成功！',
@@ -786,8 +786,8 @@ export default {
                     });
                  this.dialoghechaVisible = false
                 } else {
-                    // this.hechaform.status = null;
-                    // this.hechaform.remark = '';
+                    this.hechaform.status = null;
+                    this.hechaform.remark = '';
                     this.$message({
                     message: '核查情况提交失败！',
                     type: "error"
